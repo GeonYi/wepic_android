@@ -19,8 +19,9 @@
 
             <EditText
                 android:id="@+id/login_text_email"
+                android:style="@style/EditText_Green"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dim_50"
                 android:hint="@string/prompt_email"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textEmailAddress"
@@ -29,24 +30,28 @@
 
             <EditText
                 android:id="@+id/login_text_password"
+                android:layout_marginTop="10dp"
+                android:style="@style/EditText_Green"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dim_50"
                 android:hint="@string/prompt_password"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
 
-            <Button android:id="@+id/login_button_login" style="?android:textAppearanceSmall"
+            <Button
+                android:id="@+id/login_button_login" style="@style/Button_Green"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_height="@dimen/dim_50"
+                android:layout_marginTop="20dp"
                 android:text="@string/action_login_in"
                 android:textStyle="bold" />
 
-            <Button android:id="@+id/login_button_reg" style="?android:textAppearanceSmall"
+            <Button android:id="@+id/login_button_reg" style="@style/Button_Green"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="@dimen/dim_50"
                     android:text="@string/action_login_reg"
                     android:textStyle="bold" />
 
