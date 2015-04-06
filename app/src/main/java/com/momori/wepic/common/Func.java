@@ -12,4 +12,19 @@ public class Func {
         }
         return false;
     }
+
+    /** check email format */
+    public static boolean checkEmailFormat(String email) {
+        boolean emailCheckResult = true;
+
+        if(email.length() > Const.EMAIL_LEN){
+            emailCheckResult = false ;
+        }
+
+        String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        if(emailCheckResult == true && email.matches(EMAIL_REGEX) == false ){
+            emailCheckResult = false ;
+        }
+        return emailCheckResult;
+    }
 }
