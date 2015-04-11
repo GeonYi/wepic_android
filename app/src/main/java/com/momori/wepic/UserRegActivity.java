@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.momori.wepic.common.Func;
+import com.momori.wepic.common.SFValue;
 import com.momori.wepic.controller.UserController;
 import com.momori.wepic.model.CommonResponseModel;
 import com.momori.wepic.model.UserModel;
@@ -66,6 +67,13 @@ public class UserRegActivity extends Activity {
             this.res = usr.loginUser();
 
             if(Func.isPostSucc(this.res.getResult()) == true ){
+                SFValue pref = new SFValue(this);
+                if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false) == false){
+                   pref.put(SFValue.PREF_USER_EMAIL, this.user.getUserEmail());
+                   pref.put(SFValue.PREF_USER_ID   , this.user.getUserPw   ());
+                   pref.put(SFValue.PREF_AUTO_LOGIN, true                    );
+                }
+
                 Log.i(this.getClass().toString(), "login success");
 
                 finish();

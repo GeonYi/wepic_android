@@ -13,10 +13,22 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.momori.wepic.common.Const;
+import com.momori.wepic.common.SFValue;
+import com.momori.wepic.controller.ImageController;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class ImageCatchService extends Service {
 
     private long preTime = 0;
     private Cursor mediaDbCur = null;
+
+    private int userId  = 0;
+    private int albumId = 0;
 
     /**
      * 새로운 image파일이 catch되면
@@ -42,9 +54,14 @@ public class ImageCatchService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "서비스 onStartCommand", Toast.LENGTH_SHORT).show();
         this.preTime = Long.valueOf(String.valueOf(System.currentTimeMillis()).substring(0, 10));
-        Log.i(getClass().toString(), "first share sec : " + this.preTime);
+
+        SFValue pref = new SFValue(this);
+        this.userId  = pref.getValue(SFValue.PREF_USER_ID , Const.SF_NULL_INT);
+        this.albumId = pref.getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
+
         shareImage();
-        return START_STICKY;
+
+        return START_REDELIVER_INTENT;
     }
 
     @Override
@@ -95,22 +112,34 @@ public class ImageCatchService extends Service {
                     null);
 
             if(mediaDbCur.getCount() > 0){
-                if(mediaDbCur.moveToFirst()){
+                if(mediaDbCur.moveToLast()){
                     do{
-                        Log.i(getClass().toString(), "file name  : " + mediaDbCur.getString(mediaDbCur.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME)));
+                        String addTime = getYYYYmmDD(Long.parseLong(mediaDbCur.getString(mediaDbCur.getColumnIndex(MediaStore.Images.ImageColumns.DATE_ADDED))));
                         Log.i(getClass().toString(), "file path  : " + mediaDbCur.getString(mediaDbCur.getColumnIndex(MediaStore.Images.ImageColumns.DATA)));
-                        Log.i(getClass().toString(), "data added : " + mediaDbCur.getString(mediaDbCur.getColumnIndex(MediaStore.Images.ImageColumns.DATE_ADDED)));
-                        Log.i(getClass().toString(), "mini_thubm2 : " + mediaDbCur.getString(mediaDbCur.getColumnIndex(MediaStore.MediaColumns._ID)));
+                        Log.i(getClass().toString(), "add time yyyymmdd : " + addTime);
+
+                        //upload image
+                        ImageController imgCtl = new ImageController( mediaDbCur.getString(mediaDbCur.getColumnIndex(MediaStore.Images.ImageColumns.DATA)));
+                        imgCtl.uploadImage("", this.userId, this.albumId);
+
                     }while(mediaDbCur.moveToNext());
                     this.preTime = Long.valueOf(String.valueOf(System.currentTimeMillis()).substring(0, 10));
                 }
             } else {
                 Log.i(getClass().toString(), "delete image file.. skip.........!!");
+                this.preTime = Long.valueOf(String.valueOf(System.currentTimeMillis()).substring(0, 10));
             }
             mediaDbCur.close();
 
         }
             catch (Exception e) {
         }
+    }
+
+    private String getYYYYmmDD(Long secondTime) {
+        Date date = new Date(secondTime * 1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+        return sdf.format(date);
     }
 }

@@ -17,6 +17,7 @@ import butterknife.OnClick;
 public class MainActivity extends ActionBarActivity {
 
     @InjectView(R.id.invate) Button invateButton;
+    @InjectView(R.id.share_button) Button shareButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +25,10 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.inject(this);
+        // TODO : 사진 공유중인지 체크하여 사진 공유일때 아닐때 구분 필요
 
-        // TODO : 공유중이 아닐때만 초대 버튼 보여줌
+
+        // TODO : 앨범 공유중이 아닐때만 초대 버튼 보여줌
         // 일단 무조건 공유중 아닌걸로!!!!
         if(false){
             invateButton.setVisibility(View.GONE);
@@ -50,8 +53,21 @@ public class MainActivity extends ActionBarActivity {
     //TODO : 사진 공유 기능 구현부!
     @OnClick(R.id.share_button)
     public void regButtonOnclick() {
-        Intent service= new Intent(getApplicationContext(), ImageCatchService.class);
-        startService(service);
+        startService(new Intent(getApplicationContext(), ImageCatchService.class));
+
+//        if(shareButton.getText().toString().equals("share start")){
+//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+//            shareButton.setText("share stop");
+//            startService(new Intent(getApplicationContext(), ImageCatchService.class));
+//        }
+//        else if(shareButton.getText().toString().equals("share stop")){
+//            shareButton.setText("share start");
+//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+//        }
     }
 }
 
