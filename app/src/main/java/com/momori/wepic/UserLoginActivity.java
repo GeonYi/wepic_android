@@ -62,6 +62,9 @@ public class UserLoginActivity extends Activity{
             pref.put(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
         }
 
+        Log.i(this.getClass().toString(), pref.getValue(SFValue.PREF_AUTO_LOGIN, false) + "");
+        Log.i(this.getClass().toString(), pref.getValue(SFValue.PREF_USER_EMAIL, "").equals("") + "");
+        Log.i(this.getClass().toString(), pref.getValue(SFValue.PREF_USER_PASSWORD, "").equals("") + "");
         // 자동 로그인
         if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false)         == true  &&
            pref.getValue(SFValue.PREF_USER_EMAIL, "").equals("") == false &&
@@ -71,7 +74,7 @@ public class UserLoginActivity extends Activity{
             UserController usr = new UserController(this.user);
             this.res = usr.loginUser();
 
-            Log.i(this.getClass().toString(), "log in success");
+            Log.i(this.getClass().toString(), "auto log in success");
 
             finish();
             Intent intentSubActivity = new Intent(UserLoginActivity.this, MainActivity.class);
@@ -95,11 +98,9 @@ public class UserLoginActivity extends Activity{
         if(Func.isPostSucc(this.res.getResult()) == true ){
             // TODO : 다음화면으로 넘어감 => 공유중이면 공유중인 화면 앨범으로.. 공유중이 아니면 그냥 앨범으로?? 결정필요
 
-            if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false) == false){
-                pref.put(SFValue.PREF_USER_EMAIL, this.user.getUserEmail());
-                pref.put(SFValue.PREF_USER_PASSWORD   , this.user.getUserPw   ());
-                pref.put(SFValue.PREF_AUTO_LOGIN, true                    );
-            }
+            pref.put(SFValue.PREF_USER_EMAIL    , this.user.getUserEmail());
+            pref.put(SFValue.PREF_USER_PASSWORD , this.user.getUserPw   ());
+            pref.put(SFValue.PREF_AUTO_LOGIN    , true                    );
 
             Log.i(this.getClass().toString(), "log in success");
 

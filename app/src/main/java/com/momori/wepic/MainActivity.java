@@ -53,21 +53,17 @@ public class MainActivity extends ActionBarActivity {
     //TODO : 사진 공유 기능 구현부!
     @OnClick(R.id.share_button)
     public void regButtonOnclick() {
-        startService(new Intent(getApplicationContext(), ImageCatchService.class));
+//        startService(new Intent(getApplicationContext(), ImageCatchService.class));
 
-//        if(shareButton.getText().toString().equals("share start")){
-//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
-//            shareButton.setText("share stop");
-//            startService(new Intent(getApplicationContext(), ImageCatchService.class));
-//        }
-//        else if(shareButton.getText().toString().equals("share stop")){
-//            shareButton.setText("share start");
-//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
-//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
-//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
-//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
-//            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
-//        }
+        if(shareButton.getText().toString().equals("share start")){
+            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+            shareButton.setText("share stop");
+            startService(new Intent(getApplicationContext(), ImageCatchService.class));
+        }
+        else if(shareButton.getText().toString().equals("share stop")){
+            shareButton.setText("share start");
+            stopService(new Intent(getApplicationContext(), ImageCatchService.class));
+        }
     }
 }
 

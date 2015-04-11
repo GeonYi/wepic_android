@@ -30,6 +30,9 @@ public class ImageCatchService extends Service {
     private int userId  = 0;
     private int albumId = 0;
 
+    private ContentObserver inContentObserver;
+    private ContentObserver exContentObserver;
+
     /**
      * 새로운 image파일이 catch되면
      *  - media store에서 파일 경로 추출
@@ -67,34 +70,39 @@ public class ImageCatchService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        getContentResolver().unregisterContentObserver(inContentObserver);
+        getContentResolver().unregisterContentObserver(exContentObserver);
+
         Toast.makeText(this, "서비스 onDestro", Toast.LENGTH_SHORT).show();
     }
 
     private void shareImage(){
+        this.exContentObserver = new ContentObserver(new Handler()) {
+            @Override
+            public void onChange(boolean selfChange) {
+                Log.i(getClass().toString(),"External Media has been added!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                getNewImageInfo(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                super.onChange(selfChange);
+            }
+        };
+
+        this.inContentObserver = new ContentObserver(new Handler()) {
+            @Override
+            public void onChange(boolean selfChange) {
+                Log.i(getClass().toString(),"Internal Media has been added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                getNewImageInfo(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                super.onChange(selfChange);
+            }
+        };
+
         Handler mHandler = new Handler(Looper.getMainLooper());
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 // if external content get
-                getContentResolver().registerContentObserver(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false,
-                        new ContentObserver(new Handler()) {
-                            @Override
-                            public void onChange(boolean selfChange) {
-                                Log.i(getClass().toString(),"External Media has been added!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                                getNewImageInfo(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                super.onChange(selfChange);
-                            }
-                        });
+                getContentResolver().registerContentObserver(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, exContentObserver);
                 // if internal content get
-                getContentResolver().registerContentObserver(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI, false,
-                        new ContentObserver(new Handler()) {
-                            @Override
-                            public void onChange(boolean selfChange) {
-                                Log.i(getClass().toString(),"Internal Media has been added!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                                getNewImageInfo(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                                super.onChange(selfChange);
-                            }
-                        });
+                getContentResolver().registerContentObserver(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI, false, inContentObserver);
             }
         }, 0);
     }
