@@ -7,7 +7,7 @@ public class UserLoginActivityTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        System.out.println("setUp!!!");
+        System.out.println("setUp");
         super.setUp();
     }
 
