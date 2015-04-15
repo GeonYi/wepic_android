@@ -5,6 +5,7 @@ package com.momori.wepic.model;
  */
 public class UserModel {
 
+    private String userId       ;
     private String userEmail    ;
     private String userPw       ;
     private String userName     ;
@@ -34,6 +35,10 @@ public class UserModel {
 
     public UserModel() {
     }
+
+    public String getUserId() { return userId; }
+
+    public void setUserId(String userId) { this.userId = userId; }
 
     public String getDevNumber() {
         return devNumber;

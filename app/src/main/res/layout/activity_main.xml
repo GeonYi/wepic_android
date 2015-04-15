@@ -18,26 +18,74 @@
             android:layout_height="40dp"
             android:text="invate"
             android:background="@color/green"
-            android:id="@+id/invate"
+            android:id="@+id/main_button_invite"
             android:layout_gravity="right"/>
 
-        <Button
+        <LinearLayout
+            android:id="@+id/main_layout_shareAlbum"
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:text="share start"
-            android:id="@+id/share_button"
-            android:layout_gravity="right"
-            android:layout_below="@+id/invate"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:weightSum="1.0"
+            android:layout_below="@+id/main_button_invite"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/main_image_shareImage"
+                android:src="@mipmap/ic_launcher"
+                android:clickable="false"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:weightSum="1"
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="album_name"
+                    android:id="@+id/main_text_shareAlbumName"
+                    android:layout_weight="0.5"
+                    android:textSize="20dp"/>
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:text="share start"
+                    android:id="@+id/main_button_shareStart"
+                    android:layout_below="@+id/invate"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#FFFFFF"
+                    android:layout_margin="5dp"/>
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:text="show images"
+                    android:id="@+id/main_button_showImage"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="#FFFFFF"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
     </RelativeLayout>
 
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView">
-
-    </ListView>
 
 </LinearLayout>

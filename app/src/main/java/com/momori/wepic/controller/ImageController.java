@@ -3,7 +3,7 @@ package com.momori.wepic.controller;
 import com.google.gson.Gson;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.helper.ImagePostHelper;
-import com.momori.wepic.model.CommonResponseModel;
+import com.momori.wepic.model.response.ResCommonModel;
 
 import java.io.File;
 
@@ -35,8 +35,7 @@ public class ImageController {
     }
 
     /** 회원등록 */
-    public CommonResponseModel uploadImage(String imgCreateDatetime, int userId, int albumId){
-        TypedString sendUserId = new TypedString(String.valueOf(userId));
-        return imageHelper.uploadImage(this.image, new TypedString(imgCreateDatetime), new TypedString(String.valueOf(userId)), new TypedString(String.valueOf(albumId)));
+    public ResCommonModel uploadImage(String imgCreateDatetime, int albumId, int userId){
+        return imageHelper.uploadImage(this.image, new TypedString(imgCreateDatetime), new TypedString(String.valueOf(albumId)), new TypedString(String.valueOf(userId)));
     }
 }

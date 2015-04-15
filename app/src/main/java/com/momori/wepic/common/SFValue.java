@@ -16,9 +16,11 @@ public final class SFValue {
     public final static String PREF_USER_PASSWORD = "PREF_USER_PASSWORD";
 
     public final static String PREF_USER_ID    = "PREF_USER_ID";
+
+    public final static String PREF_IS_SHARE   = "PREF_IS_SHARE";
     public final static String PREF_GROUP_ID   = "PREF_GROUP_ID";
     public final static String PREF_ALBUM_ID   = "PREF_ALBUM_ID";
-    public final static String PREF_IS_SHARE   = "PREF_IS_SHARE";
+    public final static String PREF_SHARE_ALBUM_NAME   = "PREF_SHARE_ALBUM_NAME";
 
     static Context mContext;
 

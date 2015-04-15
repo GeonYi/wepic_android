@@ -11,9 +11,12 @@ import android.widget.EditText;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.Func;
 import com.momori.wepic.common.SFValue;
+import com.momori.wepic.controller.AlbumController;
 import com.momori.wepic.controller.UserController;
-import com.momori.wepic.model.CommonResponseModel;
+import com.momori.wepic.model.response.ResCommonModel;
+import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
+import com.momori.wepic.model.response.ResShareAlbumModel;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,8 +32,9 @@ public class UserLoginActivity extends Activity{
     @InjectView(R.id.login_text_email)      EditText    textEmail       ;
     @InjectView(R.id.login_text_password)   EditText    textPassword    ;
 
-    UserModel user ;
-    CommonResponseModel res ;
+    UserModel           userVo      ;
+    ResLogInModel       resLogIn    ;
+    ResShareAlbumModel  resShareAlbum   ;
 
     SFValue pref = new SFValue(this);
 
@@ -48,69 +52,70 @@ public class UserLoginActivity extends Activity{
         textEmail.setText("geon@gmal.com");
         textPassword.setText("11223344");
 
-        boolean 공유중 = true; //서버에서 확인
-
-        // 공유정보 추출
-        if(pref.getValue(SFValue.PREF_IS_SHARE, false) == false && 공유중){    //공유중이라면,
-            //TODO : 서버에서 공유 정보 추출
-            pref.put(SFValue.PREF_USER_ID , 1);
-            pref.put(SFValue.PREF_GROUP_ID, 1);
-            pref.put(SFValue.PREF_ALBUM_ID, 1);
-        }else{
-            pref.put(SFValue.PREF_USER_ID , Const.SF_NULL_INT);
-            pref.put(SFValue.PREF_GROUP_ID, Const.SF_NULL_INT);
-            pref.put(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
-        }
-
-        Log.i(this.getClass().toString(), pref.getValue(SFValue.PREF_AUTO_LOGIN, false) + "");
-        Log.i(this.getClass().toString(), pref.getValue(SFValue.PREF_USER_EMAIL, "").equals("") + "");
-        Log.i(this.getClass().toString(), pref.getValue(SFValue.PREF_USER_PASSWORD, "").equals("") + "");
         // 자동 로그인
         if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false)         == true  &&
            pref.getValue(SFValue.PREF_USER_EMAIL, "").equals("") == false &&
            pref.getValue(SFValue.PREF_USER_PASSWORD, "").equals("")    == false ){
 
-            this.user = new UserModel(pref.getValue(SFValue.PREF_USER_EMAIL, ""), pref.getValue(SFValue.PREF_USER_PASSWORD, ""));
-            UserController usr = new UserController(this.user);
-            this.res = usr.loginUser();
+            this.userVo = new UserModel(pref.getValue(SFValue.PREF_USER_EMAIL, ""), pref.getValue(SFValue.PREF_USER_PASSWORD, ""));
+            UserController usr = new UserController(this.userVo);
+            this.resLogIn = usr.loginUser();
+
+            this.userVo.setUserId(this.resLogIn.getUserId());
+
+            pref.put(SFValue.PREF_USER_ID , Integer.parseInt(this.resLogIn.getUserId()));
 
             Log.i(this.getClass().toString(), "auto log in success");
+            Log.i(this.getClass().toString(), "re : " + this.resLogIn.getResult());
+            Log.i(this.getClass().toString(), "ms : " + this.resLogIn.getMsg());
+            Log.i(this.getClass().toString(), "id : " + this.resLogIn.getUserId());
 
-            finish();
-            Intent intentSubActivity = new Intent(UserLoginActivity.this, MainActivity.class);
-            startActivity(intentSubActivity);
+            if(Func.isPostSucc(this.resLogIn.getResult()) == true ){
+
+                this.getUserAlbumInfo();
+
+                finish();
+                Intent intentSubActivity = new Intent(UserLoginActivity.this, MainActivity.class);
+                startActivity(intentSubActivity);
+            }
         }
     }
 
     @OnClick(R.id.login_button_login)
     public void loginButtonOnclick() {
 
+        // email validation check
         if(Func.checkEmailFormat(textEmail.getText().toString()) == false){
+            //todo : email error일때 에러처리
             Log.i(this.getClass().toString(), "email format check error");
             return;
         }
 
-        //TODO : 자동 로그인 기능 추가 필요
-        this.user = new UserModel(textEmail.getText().toString(), textPassword.getText().toString());
-        UserController usr = new UserController(this.user);
-        this.res = usr.loginUser();
+        //todo : password validaion check add
 
-        if(Func.isPostSucc(this.res.getResult()) == true ){
-            // TODO : 다음화면으로 넘어감 => 공유중이면 공유중인 화면 앨범으로.. 공유중이 아니면 그냥 앨범으로?? 결정필요
+        this.userVo = new UserModel(textEmail.getText().toString(), textPassword.getText().toString());
+        UserController usr = new UserController(this.userVo);
+        this.resLogIn = usr.loginUser();
+        this.userVo.setUserId(this.resLogIn.getUserId());
+        pref.put(SFValue.PREF_USER_ID , Integer.parseInt(this.resLogIn.getUserId()));
 
-            pref.put(SFValue.PREF_USER_EMAIL    , this.user.getUserEmail());
-            pref.put(SFValue.PREF_USER_PASSWORD , this.user.getUserPw   ());
-            pref.put(SFValue.PREF_AUTO_LOGIN    , true                    );
+        if(Func.isPostSucc(this.resLogIn.getResult()) == true ){
 
-            Log.i(this.getClass().toString(), "log in success");
+            pref.put(SFValue.PREF_USER_EMAIL    , this.userVo.getUserEmail());
+            pref.put(SFValue.PREF_USER_PASSWORD , this.userVo.getUserPw   ());
+            pref.put(SFValue.PREF_AUTO_LOGIN    , true                      );
+
+            this.getUserAlbumInfo();
+
+            Log.i(this.getClass().toString(), this.resLogIn.getMsg());
+            Log.i(this.getClass().toString(), this.resLogIn.getUserId());
 
             finish();
             Intent intentSubActivity = new Intent(UserLoginActivity.this, MainActivity.class);
                 startActivity(intentSubActivity);
         }
         else {
-            // TODO : 오류 출력
-            Log.i(this.getClass().toString(), res.getMsg());
+            Log.i(this.getClass().toString(), resLogIn.getMsg());
         }
     }
 
@@ -120,6 +125,37 @@ public class UserLoginActivity extends Activity{
         finish();
         Intent intentSubActivity = new Intent(UserLoginActivity.this, UserRegActivity.class);
         startActivity(intentSubActivity);
+    }
+
+    private void getUserAlbumInfo(){
+
+        AlbumController albumCtl = new AlbumController(this.userVo);
+        this.resShareAlbum = albumCtl.getSharedAlbumInfo();
+
+        Log.i(this.getClass().toString(), "Shared Album res: " + this.resShareAlbum.toString());
+
+        boolean 공유중 = true; //서버에서 확인
+
+        // 공유정보 추출
+        if(this.resShareAlbum.getShared_album().get(0) != null){    //공유중이라면,
+
+            Log.i(getClass().toString(), "공유중");
+
+            //TODO : 서버에서 공유 정보 추출
+            pref.put(SFValue.PREF_IS_SHARE  , true);
+            pref.put(SFValue.PREF_GROUP_ID  , Integer.valueOf(this.resShareAlbum.getShared_album().get(0).getGroup_id()));
+            pref.put(SFValue.PREF_ALBUM_ID  , Integer.valueOf(this.resShareAlbum.getShared_album().get(0).getAlbum_id()));
+            pref.put(SFValue.PREF_SHARE_ALBUM_NAME, this.resShareAlbum.getShared_album().get(0).getAlbum_name());
+        }else{
+            pref.put(SFValue.PREF_IS_SHARE, false);
+            pref.put(SFValue.PREF_GROUP_ID, Const.SF_NULL_INT);
+            pref.put(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
+            pref.put(SFValue.PREF_SHARE_ALBUM_NAME, null);
+        }
+
+        Log.i(getClass().toString(), "" + this.resShareAlbum.getShared_album().get(0).getGroup_id());
+        Log.i(getClass().toString(), "" + this.resShareAlbum.getShared_album().get(0).getAlbum_id());
+        Log.i(getClass().toString(), "" + this.resShareAlbum.getShared_album().get(0).getAlbum_name());
     }
 }
 

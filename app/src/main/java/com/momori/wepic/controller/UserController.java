@@ -4,7 +4,8 @@ import com.google.gson.Gson;
 
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.helper.UserPostHelper;
-import com.momori.wepic.model.CommonResponseModel;
+import com.momori.wepic.model.response.ResCommonModel;
+import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
 
 import retrofit.RestAdapter;
@@ -31,12 +32,12 @@ public class UserController {
     }
 
     /** 회원등록 */
-    public CommonResponseModel registUser(){
+    public ResCommonModel registUser(){
         return regUserHelper.regUser(user.getUserEmail(), user.getUserPw(), user.getUserName(), user.getDevNumber(), user.getDevPlatform());
     }
 
     /** 로그인 */
-    public CommonResponseModel loginUser(){
+    public ResLogInModel loginUser(){
         return regUserHelper.loginUser(user.getUserEmail(), user.getUserPw());
     }
 }

@@ -1,7 +1,7 @@
 package com.momori.wepic.common.helper;
 
 import com.momori.wepic.common.Const;
-import com.momori.wepic.model.CommonResponseModel;
+import com.momori.wepic.model.response.ResCommonModel;
 
 import retrofit.http.Multipart;
 import retrofit.http.POST;
@@ -15,7 +15,7 @@ import retrofit.mime.TypedString;
 public interface ImagePostHelper {
     @Multipart
     @POST(Const.URI_IMAGE_ADD)
-    CommonResponseModel uploadImage(
+    ResCommonModel uploadImage(
             @Part("img_file")   TypedFile   image,
             @Part("img_create_datetime")    TypedString imgCreateDatetime,
             @Part("album_id")   TypedString albumId,

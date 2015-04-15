@@ -11,8 +11,10 @@ import android.widget.EditText;
 import com.momori.wepic.common.Func;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.controller.UserController;
-import com.momori.wepic.model.CommonResponseModel;
+import com.momori.wepic.model.response.ResCommonModel;
+import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
+import com.momori.wepic.model.response.ResShareAlbumModel;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,8 +27,9 @@ public class UserRegActivity extends Activity {
     @InjectView(R.id.reg_text_password)   EditText    textPassword    ;
     @InjectView(R.id.reg_text_nickname)   EditText    textNickname    ;
 
-    UserModel           user;
-    CommonResponseModel res ;
+    UserModel           userVo      ;
+    ResCommonModel      resCommon   ;
+    ResLogInModel       resLogIn    ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,22 +59,22 @@ public class UserRegActivity extends Activity {
         // 회원가입
         UserModel user = new UserModel(textEmail.getText().toString(), textPassword.getText().toString(), textNickname.getText().toString(), PhoneNumber, systemService.getDeviceId());
         UserController usr = new UserController(user);
-        this.res = usr.registUser();
+        this.resCommon = usr.registUser();
 
-        if(Func.isPostSucc(this.res.getResult()) == true ){ // 회원가입 성공시
+        if(Func.isPostSucc(this.resCommon.getResult()) == true ){ // 회원가입 성공시
             Log.i(this.getClass().toString(), "user reg success");
 
             // TODO : 회원 가입 후 정상 가입 여부 출력
             // 일단은 회원가입 후 자동 로그인 시킨다!!
-            this.user = new UserModel(textEmail.getText().toString(), textPassword.getText().toString());
-            this.res = usr.loginUser();
+            this.userVo = new UserModel(textEmail.getText().toString(), textPassword.getText().toString());
+            this.resLogIn = usr.loginUser();
 
-            if(Func.isPostSucc(this.res.getResult()) == true ){
+            if(Func.isPostSucc(this.resLogIn.getResult()) == true ){
                 SFValue pref = new SFValue(this);
                 if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false) == false){
-                   pref.put(SFValue.PREF_USER_EMAIL, this.user.getUserEmail());
-                   pref.put(SFValue.PREF_USER_ID   , this.user.getUserPw   ());
-                   pref.put(SFValue.PREF_AUTO_LOGIN, true                    );
+                   pref.put(SFValue.PREF_USER_EMAIL, this.userVo.getUserEmail());
+                   pref.put(SFValue.PREF_USER_ID   , this.userVo.getUserPw   ());
+                   pref.put(SFValue.PREF_AUTO_LOGIN, true                      );
                 }
 
                 Log.i(this.getClass().toString(), "login success");
@@ -83,7 +86,7 @@ public class UserRegActivity extends Activity {
         }
         else {
             // TODO : 오류 출력
-            Log.i(this.getClass().toString(), res.getMsg());
+            Log.i(this.getClass().toString(), resCommon.getMsg());
         }
     }
 }

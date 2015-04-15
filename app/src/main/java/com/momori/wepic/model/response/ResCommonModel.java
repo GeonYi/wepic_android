@@ -1,13 +1,13 @@
-package com.momori.wepic.model;
+package com.momori.wepic.model.response;
 
 /**
  * Created by sec on 2015-03-21.
  */
-public class CommonResponseModel {
+public class ResCommonModel {
     private String result   ;
     private String msg      ;
 
-    public CommonResponseModel(String result, String msg) {
+    public ResCommonModel(String result, String msg) {
         this.result = result;
         this.msg = msg;
     }
@@ -28,5 +28,11 @@ public class CommonResponseModel {
         this.msg = msg;
     }
 
-
+    @Override
+    public String toString() {
+        return "ResCommonModel{" +
+                "result='" + result + '\'' +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

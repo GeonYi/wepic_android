@@ -3,7 +3,7 @@ package com.momori.wepic.controller.user;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.momori.wepic.controller.UserController;
-import com.momori.wepic.model.CommonResponseModel;
+import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.UserModel;
 
 import junit.framework.TestCase;
@@ -29,7 +29,7 @@ public class UserRegTest extends TestCase {
 
         UserModel user = new UserModel("gggg@gmail.com", "00001111");
         UserController usr = new UserController(user);
-        CommonResponseModel tmp = usr.loginUser();
+        ResCommonModel tmp = usr.loginUser();
 
         System.out.println("tmp : " + tmp.getResult());
         System.out.println("tmp : " + tmp.getMsg());

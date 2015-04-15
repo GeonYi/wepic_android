@@ -39,9 +39,6 @@ public class ImageCatchService extends Service {
      *  - 추출된 파일 upload
      * */
 
-    public ImageCatchService() {
-    }
-
     @Override
     public void onCreate() {
         Toast.makeText(this, "service start", Toast.LENGTH_SHORT).show();
@@ -61,6 +58,9 @@ public class ImageCatchService extends Service {
         SFValue pref = new SFValue(this);
         this.userId  = pref.getValue(SFValue.PREF_USER_ID , Const.SF_NULL_INT);
         this.albumId = pref.getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
+
+        Log.i(getClass().toString(), "PREF_USER_ID  : " + this.userId);
+        Log.i(getClass().toString(), "PREF_ALBUM_ID : " + this.albumId);
 
         shareImage();
 
@@ -128,7 +128,7 @@ public class ImageCatchService extends Service {
 
                         //upload image
                         ImageController imgCtl = new ImageController( mediaDbCur.getString(mediaDbCur.getColumnIndex(MediaStore.Images.ImageColumns.DATA)));
-                        imgCtl.uploadImage("", this.userId, this.albumId);
+                        imgCtl.uploadImage(addTime, this.albumId, this.userId);
 
                     }while(mediaDbCur.moveToNext());
                     this.preTime = Long.valueOf(String.valueOf(System.currentTimeMillis()).substring(0, 10));
