@@ -102,13 +102,11 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
 
         for(int i = 0 ; i < imglist.getShared_album().size() ; i++)
         {
-            Log.i(this.getClass().toString(), "uri list :" + i + "/" + imglist.getShared_album().get(i).getPhoto_thumb_url());
             listData.add(imglist.getShared_album().get(i).getPhoto_thumb_url());
         }
 
         return listData;
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

@@ -42,7 +42,6 @@ public class ResShareAlbumModel {
         return "ResShareAlbumModel{" +
                 "result='" + result + '\'' +
                 ", msg='" + msg + '\'' +
-                ", shared_album=" + shared_album.get(0).getAlbum_id().toString() + "/" + shared_album.get(0).getAlbum_name().toString() +
                 '}';
     }
 }

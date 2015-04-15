@@ -3,9 +3,11 @@ package com.momori.wepic;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.momori.wepic.common.Const;
@@ -23,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.main_button_invite     ) Button inviteButton;
     @InjectView(R.id.main_button_shareStart ) Button shareButton;
     @InjectView(R.id.main_text_shareAlbumName) TextView shareAlbumName;
+    @InjectView(R.id.main_layout_shareAlbum ) LinearLayout shareAlbumLayout;
 
     SFValue pref = new SFValue(this);
 
@@ -35,8 +38,10 @@ public class MainActivity extends ActionBarActivity {
 
         if(pref.getValue(SFValue.PREF_IS_SHARE, false) == true){
             inviteButton.setVisibility(View.GONE);
+            shareAlbumLayout.setVisibility(View.VISIBLE);
         }else{
             inviteButton.setVisibility(View.VISIBLE);
+            shareAlbumLayout.setVisibility(View.GONE);
         }
 
         shareAlbumName.setText(pref.getValue(SFValue.PREF_SHARE_ALBUM_NAME, ""));

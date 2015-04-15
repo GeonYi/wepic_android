@@ -135,12 +135,8 @@ public class UserLoginActivity extends Activity{
         AlbumController albumCtl = new AlbumController(this.userVo);
         this.resShareAlbum = albumCtl.getSharedAlbumInfo();
 
-        Log.i(this.getClass().toString(), "Shared Album res: " + this.resShareAlbum.toString());
-
-        boolean 공유중 = true; //서버에서 확인
-
         // 공유정보 추출
-        if(this.resShareAlbum.getShared_album().get(0) != null){    //공유중이라면,
+        if(this.resShareAlbum.getShared_album() != null){    //공유중이라면,
 
             Log.i(getClass().toString(), "공유중");
 
@@ -155,10 +151,6 @@ public class UserLoginActivity extends Activity{
             pref.put(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
             pref.put(SFValue.PREF_SHARE_ALBUM_NAME, null);
         }
-
-        Log.i(getClass().toString(), "" + this.resShareAlbum.getShared_album().get(0).getGroup_id());
-        Log.i(getClass().toString(), "" + this.resShareAlbum.getShared_album().get(0).getAlbum_id());
-        Log.i(getClass().toString(), "" + this.resShareAlbum.getShared_album().get(0).getAlbum_name());
     }
 }
 
