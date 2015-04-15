@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.helper.ImagePostHelper;
 import com.momori.wepic.model.response.ResCommonModel;
+import com.momori.wepic.model.response.ResImageListModel;
 
 import java.io.File;
 
@@ -22,6 +23,15 @@ public class ImageController {
 
     private TypedFile   image;
 
+    public ImageController() {
+        this.restAdapter = new RestAdapter.Builder()
+                .setEndpoint(Const.URI_END_POINT)
+                .setConverter(new GsonConverter(new Gson()))
+                .build();
+
+        imageHelper = this.restAdapter.create(ImagePostHelper.class);
+    }
+
     public ImageController(String filePath) {
 
         this.restAdapter = new RestAdapter.Builder()
@@ -34,8 +44,13 @@ public class ImageController {
         this.image = new TypedFile("application/octet-stream", new File(filePath));
     }
 
-    /** 회원등록 */
+    /** 이미지 upload */
     public ResCommonModel uploadImage(String imgCreateDatetime, int albumId, int userId){
         return imageHelper.uploadImage(this.image, new TypedString(imgCreateDatetime), new TypedString(String.valueOf(albumId)), new TypedString(String.valueOf(userId)));
+    }
+
+    /** 이미지 리스트 추출 */
+    public ResImageListModel getImageList(int albumId){
+        return imageHelper.getImageList(String.valueOf(albumId));
     }
 }

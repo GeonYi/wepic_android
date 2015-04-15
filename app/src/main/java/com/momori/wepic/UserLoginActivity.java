@@ -17,6 +17,8 @@ import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
 import com.momori.wepic.model.response.ResShareAlbumModel;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -49,8 +51,9 @@ public class UserLoginActivity extends Activity{
 
         ButterKnife.inject(this);
 
-        textEmail.setText("geon@gmal.com");
-        textPassword.setText("11223344");
+        // Create global configuration and initialize ImageLoader with this configuration
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext()).build();
+        ImageLoader.getInstance().init(config);
 
         // 자동 로그인
         if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false)         == true  &&

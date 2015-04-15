@@ -22,7 +22,6 @@ public class MainActivity extends ActionBarActivity {
 
     @InjectView(R.id.main_button_invite     ) Button inviteButton;
     @InjectView(R.id.main_button_shareStart ) Button shareButton;
-
     @InjectView(R.id.main_text_shareAlbumName) TextView shareAlbumName;
 
     SFValue pref = new SFValue(this);
@@ -69,6 +68,12 @@ public class MainActivity extends ActionBarActivity {
             shareButton.setText("share start");
             stopService(new Intent(getApplicationContext(), ImageCatchService.class));
         }
+    }
+
+    @OnClick(R.id.main_button_showImage)
+    public void showImageButtonOnclick() {
+        Intent intentSubActivity = new Intent(MainActivity.this, AlbumViewActivity.class);
+        startActivity(intentSubActivity);
     }
 }
 

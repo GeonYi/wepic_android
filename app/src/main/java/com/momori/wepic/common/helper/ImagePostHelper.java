@@ -2,7 +2,11 @@ package com.momori.wepic.common.helper;
 
 import com.momori.wepic.common.Const;
 import com.momori.wepic.model.response.ResCommonModel;
+import com.momori.wepic.model.response.ResImageListModel;
+import com.momori.wepic.model.response.ResShareAlbumModel;
 
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
@@ -21,4 +25,12 @@ public interface ImagePostHelper {
             @Part("album_id")   TypedString albumId,
             @Part("user_id")    TypedString userId
     );
+
+    @FormUrlEncoded
+    @POST(Const.URI_IMAGE_LIST)
+    ResImageListModel getImageList(
+            @Field("album_id") String albumId
+    );
+
+
 }

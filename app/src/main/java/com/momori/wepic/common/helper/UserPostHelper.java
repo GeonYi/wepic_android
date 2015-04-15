@@ -3,6 +3,7 @@ package com.momori.wepic.common.helper;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.response.ResLogInModel;
+import com.momori.wepic.model.response.ResShareAlbumModel;
 
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
@@ -28,5 +29,11 @@ public interface UserPostHelper {
     ResLogInModel loginUser(
             @Field("user_email") String userEmail,
             @Field("user_pw") String userPw
+    );
+
+    @FormUrlEncoded
+    @POST(Const.URI_SHARED_ALBUM)
+    ResShareAlbumModel getShareAlbum(
+            @Field("user_id") String userId
     );
 }

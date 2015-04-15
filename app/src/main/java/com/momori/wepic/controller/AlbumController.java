@@ -39,9 +39,6 @@ public class AlbumController {
 
     /** 공유사진정보추출 */
     public ResShareAlbumModel getSharedAlbumInfo(){
-
-        Log.i(this.getClass().toString(), "user_id : " + user.getUserId());
-
         return albumHelper.getShareAlbum(user.getUserId());
     }
 }
