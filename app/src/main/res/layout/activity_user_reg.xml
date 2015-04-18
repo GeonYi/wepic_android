@@ -20,45 +20,42 @@
 
             <EditText
                 android:id="@+id/reg_text_email"
-                style="@style/EditText_Green"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
-                android:hint="@string/prompt_email"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true" />
+            <!--android:hint="@string/prompt_email"-->
 
             <EditText
                 android:id="@+id/reg_text_password"
-                style="@style/EditText_Green"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
-                android:hint="@string/prompt_password"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
+            <!--android:hint="@string/prompt_password"-->
 
             <EditText
                 android:id="@+id/reg_text_nickname"
-                style="@style/EditText_Green"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
-                android:hint="@string/prompt_name"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPersonName"
                 android:maxLines="1"
                 android:singleLine="true" />
+            <!--android:hint="@string/prompt_name"-->
 
             <Button
-                android:id="@+id/reg_button_reg" style="@style/Button_Green"
+                android:id="@+id/reg_button_reg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
                 android:layout_marginTop="20dp"
-                android:text="@string/action_login_reg"
+                android:text="@string/action_sign_up"
                 android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>

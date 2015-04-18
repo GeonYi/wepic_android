@@ -13,7 +13,6 @@ import com.momori.wepic.common.Func;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.controller.AlbumController;
 import com.momori.wepic.controller.UserController;
-import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
 import com.momori.wepic.model.response.ResShareAlbumModel;
@@ -58,7 +57,9 @@ public class UserLoginActivity extends Activity{
         // 자동 로그인
         if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false)         == true  &&
            pref.getValue(SFValue.PREF_USER_EMAIL, "").equals("") == false &&
-           pref.getValue(SFValue.PREF_USER_PASSWORD, "").equals("")    == false ){
+           pref.getValue(SFValue.PREF_USER_PASSWORD, "").equals("")    == false
+                && false //todo : will delete
+                ){
 
             this.userVo = new UserModel(pref.getValue(SFValue.PREF_USER_EMAIL, ""), pref.getValue(SFValue.PREF_USER_PASSWORD, ""));
             UserController usr = new UserController(this.userVo);

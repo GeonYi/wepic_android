@@ -64,7 +64,7 @@ public class ImageCatchService extends Service {
 
         shareImage();
 
-        return START_REDELIVER_INTENT;
+        return START_STICKY;
     }
 
     @Override
@@ -74,6 +74,8 @@ public class ImageCatchService extends Service {
         getContentResolver().unregisterContentObserver(exContentObserver);
 
         Toast.makeText(this, "서비스 onDestro", Toast.LENGTH_SHORT).show();
+
+        Log.i(getClass().toString(), "service onDestroy");
     }
 
     private void shareImage(){

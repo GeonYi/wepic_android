@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
-import com.momori.wepic.adapter.StaggeredGridAdapter;
+import com.momori.wepic.ui.StaggeredGridAdapter;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.controller.ImageController;
@@ -77,7 +77,7 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
             if (lastInScreen >= totalItemCount) {
                 Log.d(this.getClass().toString(), "onScroll lastInScreen - so load more");
                 mHasRequestedMore = true;
-//                onLoadMoreItems();
+                onLoadMoreItems();
             }
         }
     }

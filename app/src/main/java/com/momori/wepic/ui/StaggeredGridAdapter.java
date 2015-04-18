@@ -1,4 +1,4 @@
-package com.momori.wepic.adapter;
+package com.momori.wepic.ui;
 
 import java.util.ArrayList;
 import java.util.Random;

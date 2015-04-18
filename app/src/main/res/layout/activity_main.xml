@@ -17,7 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:text="invate"
-            android:background="@color/green"
+            android:background="@color/accent_material_dark"
             android:id="@+id/main_button_invite"
             android:layout_gravity="right"/>
 
@@ -26,7 +26,7 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
+            android:background="@color/card_pressed"
             android:weightSum="1.0"
             android:layout_below="@+id/main_button_invite"
             android:layout_centerHorizontal="true"

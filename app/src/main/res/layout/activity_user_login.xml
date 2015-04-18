@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center_horizontal"
@@ -24,40 +25,53 @@
 
             <EditText
                 android:id="@+id/login_text_email"
-                style="@style/EditText_Green"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
-                android:hint="@string/prompt_email"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true" />
+            <!--android:hint="@string/prompt_email"-->
 
             <EditText
                 android:id="@+id/login_text_password"
-                style="@style/EditText_Green"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
-                android:hint="@string/prompt_password"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true" />
+            <!--android:hint="@string/prompt_password"-->
+
+            <!--<com.rey.material.app.ContactEditText-->
+                <!--style="@style/ContactEditText"-->
+                <!--android:id="@+id/textfield_tv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#FF000000"-->
+                <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"-->
+                <!--android:inputType="textEmailSubject|textMultiLine"-->
+                <!--android:hint="Contact"-->
+                <!--android:imeOptions="actionNext|flagNoEnterAction|flagNoExtractUi"-->
+                <!--android:dropDownSelector="@drawable/abc_list_selector_background_transition_holo_light"-->
+                <!--app:et_inputId="@+id/textfield_et_contact_input"-->
+                <!--app:et_supportMode="none"-->
+                <!--app:et_autoCompleteMode="multi"-->
+                <!--app:et_dividerPadding="4dp"-->
+                <!--android:completionThreshold="2"/>-->
 
             <Button
-                android:id="@+id/login_button_login" style="@style/Button_Green"
+                android:id="@+id/login_button_login"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
-                android:layout_marginTop="20dp"
-                android:text="@string/action_login_in"
+                android:layout_marginTop="10dp"
+                android:text="@string/action_log_in"
                 android:textStyle="bold" />
 
-            <Button android:id="@+id/login_button_reg" style="@style/Button_Green"
+            <Button android:id="@+id/login_button_reg"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
                     android:layout_height="@dimen/dim_50"
-                    android:text="@string/action_login_reg"
+                    android:text="@string/action_sign_up"
                     android:textStyle="bold" />
 
         </LinearLayout>

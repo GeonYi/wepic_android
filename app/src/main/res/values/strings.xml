@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">Wepic</string>
-    <string name="title_activity_user_reg">UserRegActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+    <!--default resources-->
+    <string name="app_name">Wepic</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_user_reg">UserRegActivity</string>
     <string name="title_activity_album_view">AlbumViewActivity</string>
+
+    <!--button resource-->
+    <string name="action_log_in">Log In</string>
+    <string name="action_sign_up">Sign Up</string>
 </resources>
