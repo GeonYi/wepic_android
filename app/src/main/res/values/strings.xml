@@ -10,6 +10,13 @@
     <string name="action_log_in">Log In</string>
     <string name="action_sign_up">Sign Up</string>
 
+    <string name="prompt_email">Email Address(less than 100 char)</string>
+    <string name="prompt_password">Psssword</string>
+
+
+
+
+
     <!-- for material -->
     <string name="rd_repeat">Repeat</string>
     <string name="rd_daily">Daily</string>

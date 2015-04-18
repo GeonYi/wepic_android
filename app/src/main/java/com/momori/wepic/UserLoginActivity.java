@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.Func;
@@ -16,6 +15,7 @@ import com.momori.wepic.controller.UserController;
 import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
 import com.momori.wepic.model.response.ResShareAlbumModel;
+import com.momori.wepic.ui.ContactEditText;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -30,8 +30,8 @@ import butterknife.OnClick;
 // TODO : FACE BOOK 연동!! 개발 후에 하자!!
 public class UserLoginActivity extends Activity{
 
-    @InjectView(R.id.login_text_email)      EditText    textEmail       ;
-    @InjectView(R.id.login_text_password)   EditText    textPassword    ;
+    @InjectView(R.id.login_text_email)      ContactEditText    textEmail       ;
+    @InjectView(R.id.login_text_password)   ContactEditText    textPassword    ;
 
     UserModel           userVo      ;
     ResLogInModel       resLogIn    ;
@@ -53,6 +53,10 @@ public class UserLoginActivity extends Activity{
         // Create global configuration and initialize ImageLoader with this configuration
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext()).build();
         ImageLoader.getInstance().init(config);
+
+        //todo : will delete
+        textEmail.setText("geon@gmal.com");
+        textPassword.setText("11223344");
 
         // 자동 로그인
         if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false)         == true  &&

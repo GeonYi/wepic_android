@@ -23,42 +23,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/login_text_email"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dim_50"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true" />
-            <!--android:hint="@string/prompt_email"-->
-
-            <EditText
-                android:id="@+id/login_text_password"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dim_50"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true" />
-            <!--android:hint="@string/prompt_password"-->
-
             <com.momori.wepic.ui.ContactEditText
-                style="@style/ContactEditText"
-                android:id="@+id/textfield_tv"
+                style="@style/Material.Widget.EditText.Light"
+                android:id="@+id/login_text_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FF000000"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-                android:inputType="textEmailSubject|textMultiLine"
-                android:hint="Contact"
-                android:imeOptions="actionNext|flagNoEnterAction|flagNoExtractUi"
-                android:dropDownSelector="@drawable/abc_list_selector_background_transition_holo_light"
-                app:et_inputId="@+id/textfield_et_contact_input"
+                android:inputType="textEmailAddress"
+                android:hint="@string/prompt_email"
+                android:textSize = "20dp"
+                app:et_labelTextSize = "15dp"
+                app:et_inputId="@+id/textfield_et_char_counter_input"
+                app:et_labelTextColor="@drawable/color_label"
                 app:et_supportMode="none"
-                app:et_autoCompleteMode="multi"
-                app:et_dividerPadding="4dp"
-                android:completionThreshold="2"/>
+                app:et_supportTextErrorColor="#FFFF0000"
+                app:et_dividerErrorColor="#FFFF0000"/>
+            <!--app:et_supportMaxChars="100"-->
+
+            <com.momori.wepic.ui.ContactEditText
+                style="@style/Material.Widget.EditText.Light"
+                android:id="@+id/login_text_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FF000000"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:inputType="textPassword"
+                android:hint="@string/prompt_password"
+                android:textSize = "20dp"
+                android:layout_marginTop="20dp"
+                app:et_labelTextSize = "15dp"
+                app:et_inputId="@+id/textfield_et_char_counter_input"
+                app:et_labelTextColor="@drawable/color_label"
+                app:et_supportMode="helper"
+                app:et_supportTextErrorColor="#FFFF0000"
+                app:et_dividerErrorColor="#FFFF0000"/>
 
             <Button
                 android:id="@+id/login_button_login"
