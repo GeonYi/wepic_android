@@ -77,7 +77,7 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
             if (lastInScreen >= totalItemCount) {
                 Log.d(this.getClass().toString(), "onScroll lastInScreen - so load more");
                 mHasRequestedMore = true;
-                onLoadMoreItems();
+//                onLoadMoreItems();
             }
         }
     }

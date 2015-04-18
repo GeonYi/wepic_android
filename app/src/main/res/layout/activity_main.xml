@@ -26,7 +26,7 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/card_pressed"
+            android:background="@color/accent_material_dark"
             android:weightSum="1.0"
             android:layout_below="@+id/main_button_invite"
             android:layout_centerHorizontal="true"
