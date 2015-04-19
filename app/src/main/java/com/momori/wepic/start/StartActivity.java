@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.momori.wepic.R;
 
-
 /**
  * Created by Hyeon on 2015-04-12.
  */
@@ -19,13 +18,9 @@ public class StartActivity extends Activity{
         setContentView(R.layout.activity_start);
 
         this.startPresenter = new StartPresenterImpl(StartActivity.this);
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
         this.startPresenter.login();
     }
+
 
     @Override
     protected void onResume(){
