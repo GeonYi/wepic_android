@@ -1,4 +1,4 @@
-package com.momori.wepic.gcm;
+package com.momori.wepic.external.gcm;
 
 import android.app.Activity;
 import android.content.Context;

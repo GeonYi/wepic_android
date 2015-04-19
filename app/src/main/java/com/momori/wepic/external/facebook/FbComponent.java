@@ -1,4 +1,4 @@
-package com.momori.wepic.facebook;
+package com.momori.wepic.external.facebook;
 
 import android.content.Context;
 

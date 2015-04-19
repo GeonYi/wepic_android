@@ -6,7 +6,6 @@ import android.util.Log;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
-import com.momori.wepic.model.FbLoginModel;
 import com.momori.wepic.presenter.inter.FbLoginPresenter;
 
 /**

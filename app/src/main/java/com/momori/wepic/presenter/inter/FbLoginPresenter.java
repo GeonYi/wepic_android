@@ -2,8 +2,6 @@ package com.momori.wepic.presenter.inter;
 
 import android.content.Intent;
 
-import com.momori.wepic.model.FbLoginModel;
-
 /**
  * Created by Hyeon on 2015-04-18.
  */

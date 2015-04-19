@@ -1,7 +1,6 @@
 package com.momori.wepic.activity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +9,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.momori.wepic.R;
+import com.momori.wepic.external.facebook.FbLoginButton;
+import com.momori.wepic.presenter.impl.FbLoginPresenterImpl;
+import com.momori.wepic.presenter.inter.FbLoginPresenter;
 
 
 /**

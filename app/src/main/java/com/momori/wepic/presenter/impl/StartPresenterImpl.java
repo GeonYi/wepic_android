@@ -5,18 +5,21 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.momori.wepic.MainActivity;
+import com.momori.wepic.activity.FbLoginActivity;
+import com.momori.wepic.activity.MainActivity;
+import com.momori.wepic.activity.StartActivity;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.common.callback.AsyncCallback;
-import com.momori.wepic.facebook.FbComponent;
-import com.momori.wepic.facebook.FbLoginActivity;
-import com.momori.wepic.gcm.GcmComponent;
+import com.momori.wepic.external.facebook.FbComponent;
+import com.momori.wepic.external.gcm.GcmComponent;
+import com.momori.wepic.model.StartModel;
+import com.momori.wepic.presenter.inter.StartPresenter;
 
 
 /**
  * Created by Hyeon on 2015-04-18.
  */
-public class StartPresenterImpl implements  StartPresenter {
+public class StartPresenterImpl implements StartPresenter {
     static final String TAG = StartPresenterImpl.class.getName();
     private final int FBLOGINACTIVITY_REQEST = 1000;
 

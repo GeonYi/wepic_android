@@ -10,7 +10,6 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.momori.wepic.activity.FbLoginActivity;
 import com.momori.wepic.external.facebook.FbLoginCallback;
-import com.momori.wepic.model.FbLoginModel;
 import com.momori.wepic.presenter.inter.FbLoginPresenter;
 
 import java.util.Arrays;
