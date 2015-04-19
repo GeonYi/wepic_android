@@ -43,7 +43,7 @@ dependencies {
     //Etsy’s Staggered GridView
     compile 'com.etsy.android.grid:library:1.0.5'
 
-    // for test, will delete
+    // for test, will delete!!!!
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.9.5'
 }
