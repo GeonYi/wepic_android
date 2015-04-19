@@ -9,24 +9,26 @@ import android.content.SharedPreferences;
  */
 public final class SFValue {
 
-    private final String PREF_NAME = "com.momori.pref";
+    private final static String PREF_NAME = "com.momori.pref";
 
     public final static String PREF_AUTO_LOGIN    = "PREF_AUTO_LOGIN"   ;
     public final static String PREF_USER_EMAIL    = "PREF_USER_EMAIL"   ;
     public final static String PREF_USER_PASSWORD = "PREF_USER_PASSWORD";
-
     public final static String PREF_USER_ID    = "PREF_USER_ID";
-
     public final static String PREF_IS_SHARE   = "PREF_IS_SHARE";
     public final static String PREF_GROUP_ID   = "PREF_GROUP_ID";
     public final static String PREF_ALBUM_ID   = "PREF_ALBUM_ID";
     public final static String PREF_SHARE_ALBUM_NAME   = "PREF_SHARE_ALBUM_NAME";
+
+    public final static  String GCM_REG_ID = "GCM_REG_ID"; //API Key
+    public final static  String APP_VERSION = "APPVERSION";
 
     static Context mContext;
 
     public SFValue(Context c) {
         mContext = c;
     }
+
 
     public void put(String key, String value) {
         SharedPreferences pref = mContext.getSharedPreferences(PREF_NAME, Activity.MODE_PRIVATE);

@@ -13,9 +13,7 @@
     <string name="prompt_email">Email Address(less than 100 char)</string>
     <string name="prompt_password">Psssword</string>
 
-
-
-
+    <string name="fb_app_id">911286275602653</string>
 
     <!-- for material -->
     <string name="rd_repeat">Repeat</string>
