@@ -3,6 +3,7 @@ package com.momori.wepic;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -75,6 +76,24 @@ public class MainActivity extends ActionBarActivity {
     public void showImageButtonOnclick() {
         Intent intentSubActivity = new Intent(MainActivity.this, AlbumViewActivity.class);
         startActivity(intentSubActivity);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        switch(keyCode){
+            // 뒤로 가기 버튼을 누르면 홈 키를 누른거 처럼 내려간다
+            case KeyEvent.KEYCODE_BACK:
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.MAIN");
+                intent.addCategory("android.intent.category.HOME");
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
+                        | Intent.FLAG_ACTIVITY_FORWARD_RESULT
+                        | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP
+                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                startActivity(intent);
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 
