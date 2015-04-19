@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.SFValue;
-import com.momori.wepic.controller.ImageController;
+import com.momori.wepic.controller.post.ImageController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -2,7 +2,7 @@ package com.momori.wepic.controller.user;
 
 import android.test.suitebuilder.annotation.SmallTest;
 
-import com.momori.wepic.controller.UserController;
+import com.momori.wepic.controller.post.UserController;
 import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.UserModel;
 
