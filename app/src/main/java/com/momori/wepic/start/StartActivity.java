@@ -18,19 +18,25 @@ public class StartActivity extends Activity{
         setContentView(R.layout.activity_start);
 
         this.startPresenter = new StartPresenterImpl(StartActivity.this);
-        this.startPresenter.login();
+        this.startPresenter.initApplication();
     }
 
 
     @Override
-    protected void onResume(){
-        super.onResume();
-        this.startPresenter.checkLoginAndStartMainActivity();
+    protected void onStart(){
+        super.onStart();
+        checkReadyAndLogin();
+    }
+
+    public void checkReadyAndLogin(){
+        if(this.startPresenter.isReadyToLogin()){
+            this.startPresenter.wepicLogin();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        this.startPresenter.onActivityResult(requestCode, resultCode, data);
+        checkReadyAndLogin();
     }
 }

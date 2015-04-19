@@ -1,5 +1,6 @@
 package com.momori.wepic.facebook;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.facebook.FacebookCallback;
@@ -21,19 +22,18 @@ public class FbLoginCallback implements FacebookCallback<LoginResult> {
     @Override
     public void onSuccess(LoginResult loginResult) {
         Log.i(TAG, "facebook Login faceSuccess");
-        String fb_user_id = loginResult.getAccessToken().getUserId();
-        FbLoginModel fbLoginModel = this.fbLoginPresenter.getFbLoginModel();
-        fbLoginModel.setFb_user_id(fb_user_id);
-        fbLoginPresenter.finishActivity(fbLoginModel);
+        fbLoginPresenter.finishActivity(Activity.RESULT_OK);
     }
 
     @Override
     public void onCancel() {
         Log.e(TAG, "facebook login canceled");
+        fbLoginPresenter.finishActivity(Activity.RESULT_CANCELED);
     }
 
     @Override
     public void onError(FacebookException e) {
         Log.e(TAG, "facebook login failed error");
+        fbLoginPresenter.finishActivity(Activity.RESULT_CANCELED);
     }
 }

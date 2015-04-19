@@ -55,7 +55,7 @@ public class ImageCatchService extends Service {
         Toast.makeText(this, "서비스 onStartCommand", Toast.LENGTH_SHORT).show();
         this.preTime = Long.valueOf(String.valueOf(System.currentTimeMillis()).substring(0, 10));
 
-        SFValue pref = new SFValue(this);
+        SFValue pref = SFValue.getInstance();
         this.userId  = pref.getValue(SFValue.PREF_USER_ID , Const.SF_NULL_INT);
         this.albumId = pref.getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
 

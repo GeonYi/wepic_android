@@ -23,10 +23,19 @@ public final class SFValue {
     public final static  String GCM_REG_ID = "GCM_REG_ID"; //API Key
     public final static  String APP_VERSION = "APPVERSION";
 
+    private static SFValue sfValue;
     static Context mContext;
 
-    public SFValue(Context c) {
-        mContext = c;
+    public static void initInstance(Context context){
+        sfValue = new SFValue(context);
+    }
+
+    public static SFValue getInstance(){
+        return sfValue;
+    }
+
+    private SFValue(Context context) {
+        this.mContext = context;
     }
 
 

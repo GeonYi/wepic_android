@@ -1,29 +1,26 @@
 package com.momori.wepic.start;
 
-import com.momori.wepic.facebook.FbLoginModel;
-import com.momori.wepic.gcm.GcmModel;
-
 /**
  * Created by Hyeon on 2015-04-18.
  */
 public class StartModel {
 
-    private FbLoginModel fbLoginModel;
-    private GcmModel gcmModel;
+    private String fb_user_id = "";
+    private String gcm_reg_id = "";
 
-    public FbLoginModel getFbLoginModel() {
-        return fbLoginModel;
+    public String getFb_user_id() {
+        return fb_user_id;
     }
 
-    public void setFbLoginModel(FbLoginModel fbLoginModel) {
-        this.fbLoginModel = fbLoginModel;
+    public void setFb_user_id(String fb_user_id) {
+        this.fb_user_id = fb_user_id;
     }
 
-    public GcmModel getGcmModel() {
-        return gcmModel;
+    public String getGcm_reg_id() {
+        return gcm_reg_id;
     }
 
-    public void setGcmModel(GcmModel gcmModel) {
-        this.gcmModel = gcmModel;
+    public void setGcm_reg_id(String gcm_reg_id) {
+        this.gcm_reg_id = gcm_reg_id;
     }
 }

@@ -37,7 +37,7 @@ public class UserLoginActivity extends Activity{
     ResLogInModel       resLogIn    ;
     ResShareAlbumModel  resShareAlbum   ;
 
-    SFValue pref = new SFValue(this);
+    SFValue pref = SFValue.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

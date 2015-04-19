@@ -1,6 +1,5 @@
 package com.momori.wepic.facebook;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -8,14 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
 import com.momori.wepic.R;
-import com.momori.wepic.start.StartPresenterImpl;
-
-import java.util.Arrays;
 
 
 /**
@@ -37,8 +29,8 @@ public class FbLoginActivity extends FragmentActivity implements FbLoginPresente
         this.fbLoginPresenter.login();
     }
 
-    public void setResultAndFinish(int resultCode, Intent intent){
-        setResult(resultCode , intent);
+    public void setResultAndFinish(int resultCode){
+        setResult(resultCode);
         finish();
     }
 

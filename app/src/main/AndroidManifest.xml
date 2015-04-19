@@ -64,8 +64,6 @@
 
         <activity android:name=".common.activity.NotificationActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity android:name=".gcm.GcmActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".facebook.FbLoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />

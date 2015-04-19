@@ -1,22 +1,24 @@
 package com.momori.wepic.start;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import com.facebook.FacebookSdk;
 import com.momori.wepic.MainActivity;
+import com.momori.wepic.common.SFValue;
+import com.momori.wepic.common.callback.AsyncCallback;
+import com.momori.wepic.facebook.FbComponent;
 import com.momori.wepic.facebook.FbLoginActivity;
-import com.momori.wepic.facebook.FbLoginModel;
-import com.momori.wepic.gcm.GcmActivity;
-import com.momori.wepic.gcm.GcmModel;
+import com.momori.wepic.gcm.GcmComponent;
 
 
 /**
  * Created by Hyeon on 2015-04-18.
  */
 public class StartPresenterImpl implements  StartPresenter {
-    private static final int FBLOGINACTIVITY_REQUEST = 1000;
-    private static final int GCMACTIVITY_REQUEST = 2000;
+    static final String TAG = StartPresenterImpl.class.getName();
+    private final int FBLOGINACTIVITY_REQEST = 1000;
 
     private StartActivity activity;
     private StartModel startModel;
@@ -26,56 +28,77 @@ public class StartPresenterImpl implements  StartPresenter {
         this.startModel = new StartModel();
     }
 
-    public void login() {
+    // 최초 앱 실행시 초기화
+    public void initApplication(){
+        Context context = this.activity.getApplicationContext();
+        SFValue.initInstance(context);
+        GcmComponent.initInstance(context);
+        FbComponent.initFbComponent(context);
+    }
+
+    public boolean isReadyToLogin(){
+        if(!FbComponent.getInstance().isAccessTokenValid()){
+            facebookLogin();
+            return false;
+        }else if(getGcmRegId().isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    private void facebookLogin() {
         final StartModel startModel = this.startModel;
+        final StartActivity activity = this.activity;
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-
-                FacebookSdk.sdkInitialize(activity.getApplicationContext());
-                startFbLoginActivity();
-                startGcmActivity();
+                Intent intent = new Intent(activity, FbLoginActivity.class);
+                activity.startActivityForResult(intent, FBLOGINACTIVITY_REQEST);
                 return null;
             }
         }.execute(null, null, null);
     }
 
-    public void checkLoginAndStartMainActivity(){
-        if(startModel.getFbLoginModel()!=null
-                && startModel.getGcmModel()!=null){
+    public void wepicLogin(){
+        if(isReadyToLogin()){
+
+            //  FbComponent에서 정보가져오고 로그인 한다
             startMainActivity();
         }
     }
 
-    public StartModel getStartModel() {
-        return this.startModel;
+    private String getGcmRegId(){
+        String gcm_reg_id =this.startModel.getGcm_reg_id();
+        if(gcm_reg_id.isEmpty()){
+            GcmComponent gcmComponent = GcmComponent.getInstance();
+            gcm_reg_id = gcmComponent.getGcmRegId();
+            if(gcm_reg_id.isEmpty()){
+                registGcmRegId(this.activity, this.startModel);
+            }else{
+                this.startModel.setGcm_reg_id(gcm_reg_id);
+            }
+        }
+        return gcm_reg_id;
     }
 
-    public void startFbLoginActivity() {
-        Intent intent = new Intent(this.activity, FbLoginActivity.class);
-        this.activity.startActivityForResult(intent, FBLOGINACTIVITY_REQUEST);
-    }
-
-    public void startGcmActivity() {
-        Intent intent = new Intent(this.activity, GcmActivity.class);
-        this.activity.startActivityForResult(intent, GCMACTIVITY_REQUEST);
+    private void registGcmRegId(final StartActivity activity, final StartModel startModel){
+        GcmComponent.getInstance().registGcmRegId(activity, new AsyncCallback.AsyncResult<String>() {
+            @Override
+            public void onResult(String result) {
+                startModel.setGcm_reg_id(result);
+                activity.checkReadyAndLogin();
+            }
+            @Override
+            public void exceptionOccured(Exception e) {
+                Log.e(TAG, e.getMessage());
+                //TODO : 알람 후 앱종료
+            }
+        });
     }
 
     private void startMainActivity(){
         Intent intent = new Intent(this.activity, MainActivity.class);
         this.activity.startActivity(intent);
     }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == this.activity.RESULT_OK) {
-            if (requestCode == FBLOGINACTIVITY_REQUEST) {
-                FbLoginModel fbLoginModel = (FbLoginModel) data.getSerializableExtra(FbLoginModel.class.getSimpleName());
-                startModel.setFbLoginModel(fbLoginModel);
-            } else if (requestCode == GCMACTIVITY_REQUEST) {
-                GcmModel gcmModel = (GcmModel) data.getSerializableExtra(GcmModel.class.getSimpleName());
-                startModel.setGcmModel(gcmModel);
-            }
-        }
-    }
-
 }

@@ -26,7 +26,6 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
     private StaggeredGridAdapter mAdapter;
 
     private ArrayList<String> mData;
-    SFValue pref = new SFValue(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +97,7 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
         ArrayList<String> listData = new ArrayList<String>();
 
         ImageController imageCtl = new ImageController();
-        ResImageListModel imglist = imageCtl.getImageList(pref.getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT));
+        ResImageListModel imglist = imageCtl.getImageList(SFValue.getInstance().getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT));
 
         for(int i = 0 ; i < imglist.getShared_album().size() ; i++)
         {

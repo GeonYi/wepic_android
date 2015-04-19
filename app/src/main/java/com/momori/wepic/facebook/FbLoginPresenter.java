@@ -9,17 +9,13 @@ public interface FbLoginPresenter {
 
     public void login();
 
-    public void logOut();
-
-    public FbLoginModel getFbLoginModel();
-
     public void registCallback(Object target);
 
-    void onActivityResult(int requestCode, int resultCode, Intent data);
+    public void onActivityResult(int requestCode, int resultCode, Intent data);
 
-    void finishActivity(FbLoginModel result);
+    public void finishActivity(int resultCode);
 
-    void setView(View view);
+    public void setView(View view);
 
     public interface View{
         void showFbLoginButton();

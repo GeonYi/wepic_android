@@ -24,7 +24,6 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.main_text_shareAlbumName) TextView shareAlbumName;
     @InjectView(R.id.main_layout_shareAlbum ) LinearLayout shareAlbumLayout;
 
-    SFValue pref = new SFValue(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
-        if(pref.getValue(SFValue.PREF_IS_SHARE, false) == true){
+        if(SFValue.getInstance().getValue(SFValue.PREF_IS_SHARE, false) == true){
             inviteButton.setVisibility(View.GONE);
             shareAlbumLayout.setVisibility(View.VISIBLE);
         }else{
@@ -41,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
             shareAlbumLayout.setVisibility(View.GONE);
         }
 
-        shareAlbumName.setText(pref.getValue(SFValue.PREF_SHARE_ALBUM_NAME, ""));
+        shareAlbumName.setText(SFValue.getInstance().getValue(SFValue.PREF_SHARE_ALBUM_NAME, ""));
     }
 
     //TODO : 친구초대
