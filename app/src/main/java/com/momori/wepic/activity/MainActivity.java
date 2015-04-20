@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.momori.wepic.R;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.SFValue;
+import com.momori.wepic.model.UserModel;
 import com.momori.wepic.service.ImageCatchService;
 
 import butterknife.ButterKnife;
@@ -25,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.main_text_shareAlbumName) TextView shareAlbumName;
     @InjectView(R.id.main_layout_shareAlbum ) LinearLayout shareAlbumLayout;
 
+    String user_id ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.inject(this);
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra(UserModel.USER_ID);
 
         if(SFValue.getInstance().getValue(SFValue.PREF_IS_SHARE, false) == true){
             inviteButton.setVisibility(View.GONE);

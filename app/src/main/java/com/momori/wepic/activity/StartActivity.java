@@ -68,8 +68,20 @@ public class StartActivity extends Activity{
             protected void onPostExecute(Boolean result){
                 if(result){
                     Log.i(TAG, "로그인 준비 완료, Wepic 로그인 합니다.");
-                    this.startPresenter.wepicLogin();
+                    wepicLogin();
                 }
+            }
+        }.execute(this.startPresenter);
+    }
+
+    public void wepicLogin(){
+        Log.d(TAG , "백그라운드로 Wepic 로그인");
+        new AsyncTask<StartPresenter, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(StartPresenter[] params) {
+                params[0].wepicLogin();
+                return null;
             }
         }.execute(this.startPresenter);
     }

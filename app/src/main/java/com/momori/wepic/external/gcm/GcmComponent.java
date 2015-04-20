@@ -55,15 +55,16 @@ public class GcmComponent{
     public void registRegId(final AsyncCallback<String> callback){
         new AsyncTask<Object, Void, AsyncCallback<String>>(){
 
-            String reg_id = "";
+            String gcm_reg_id = "";
             Exception e;
 
             @Override
             protected AsyncCallback<String> doInBackground(Object... params) {
                     try{
-                        reg_id = gcm.register(SENDER_ID);
-                        storeRegIdToPreferences(reg_id);
-                        Log.i(TAG, "GCM 서버 등록 완료 - reg_id : " +  reg_id);
+                        gcm_reg_id = gcm.register(SENDER_ID);
+                        reg_id = gcm_reg_id;
+                        storeRegIdToPreferences(gcm_reg_id);
+                        Log.i(TAG, "GCM 서버 등록 완료 - reg_id : " +  gcm_reg_id);
                     } catch (IOException ex) {
                         Log.e(TAG, "GCM 서버 등록 실패 : " + ex.getMessage());
                         e = ex;
@@ -77,7 +78,7 @@ public class GcmComponent{
                 if(e!=null){
                     callback.exceptionOccured(e);
                 }else{
-                    callback.onResult(reg_id);
+                    callback.onResult(gcm_reg_id);
                 }
             }
         }.execute();
@@ -137,5 +138,6 @@ public class GcmComponent{
 
     private void storeRegIdToPreferences(String gcm_reg_id){
         SFValue.getInstance().put(SFValue.PREF_REG_ID, gcm_reg_id);
+        SFValue.getInstance().put(SFValue.PREF_APP_VERSION, getAppVersion());
     }
 }

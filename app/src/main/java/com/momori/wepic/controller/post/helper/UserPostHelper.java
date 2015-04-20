@@ -27,8 +27,12 @@ public interface UserPostHelper {
     @FormUrlEncoded
     @POST(Const.URI_USER_LOGIN)
     ResLogInModel loginUser(
-            @Field("user_email") String userEmail,
-            @Field("user_pw") String userPw
+            @Field("user_email") String user_email,
+            @Field("external_id") String external_id,
+            @Field("dev_id") String dev_id,
+            @Field("dev_number") String dev_number,
+            @Field("dev_platform") String dev_platform,
+            @Field("dev_reg_id") String dev_reg_id
     );
 
     @FormUrlEncoded

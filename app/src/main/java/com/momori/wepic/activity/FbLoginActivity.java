@@ -71,22 +71,4 @@ public class FbLoginActivity extends FragmentActivity implements FbLoginPresente
         Log.d(TAG, "FbLoginActivity destroy");
         super.onDestroy();
     }
-
-    /*
-                GraphRequest.newMeRequest(loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-
-                            @Override
-                            public void onCompleted(JSONObject user, GraphResponse response) {
-                                if (user != null) {
-                                    //profilePictureView.setProfileId(user.optString("id"));
-                                    String fb_user_id = user.optString("id");
-                                    moveToMainActivity();
-                                } else {
-                                    Log.e(TAG, response.getError().getErrorMessage());
-                                }
-                            }
-                        }).executeAsync();
-     */
-
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import com.momori.wepic.common.Const;
 import com.momori.wepic.controller.post.helper.UserPostHelper;
+import com.momori.wepic.model.UserDeviceModel;
 import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
@@ -31,13 +32,21 @@ public class UserController {
         regUserHelper = this.restAdapter.create(UserPostHelper.class);
     }
 
-    /** 회원등록 */
+    public ResLogInModel fbLoginUser(){
+        UserDeviceModel userDeviceModel = user.getUserDevice();
+        return regUserHelper.loginUser(user.getUser_email(), user.getExternal_id()
+                , userDeviceModel.getDev_id(), userDeviceModel.getDev_number()
+                , userDeviceModel.getDev_platform(), userDeviceModel.getDev_reg_id());
+    }
+
+    /** 회원등록 *//*
     public ResCommonModel registUser(){
         return regUserHelper.regUser(user.getUserEmail(), user.getUserPw(), user.getUserName(), user.getDevNumber(), user.getDevPlatform());
     }
-
-    /** 로그인 */
+ */
+    /** 로그인 *//*
     public ResLogInModel loginUser(){
         return regUserHelper.loginUser(user.getUserEmail(), user.getUserPw());
     }
+   */
 }

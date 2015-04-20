@@ -43,7 +43,7 @@ public class UserRegActivity extends Activity {
     public void regButtonOnclick() {
 
         Log.i(this.getClass().toString(), "test");
-
+/*
 
         if(Func.checkEmailFormat(textEmail.getText().toString()) == false){
             Log.i(this.getClass().toString(), "email format check error");
@@ -88,5 +88,7 @@ public class UserRegActivity extends Activity {
             // TODO : 오류 출력
             Log.i(this.getClass().toString(), resCommon.getMsg());
         }
+
+        */
     }
 }
