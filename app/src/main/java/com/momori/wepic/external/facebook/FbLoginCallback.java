@@ -22,19 +22,19 @@ public class FbLoginCallback implements FacebookCallback<LoginResult> {
 
     @Override
     public void onSuccess(LoginResult loginResult) {
-        Log.i(TAG, "facebook Login faceSuccess");
+        Log.i(TAG, "페이스북 로그인 성공");
         fbLoginPresenter.finishActivity(Activity.RESULT_OK);
     }
 
     @Override
     public void onCancel() {
-        Log.e(TAG, "facebook login canceled");
+        Log.i(TAG, "페이스북 로그인 취소");
         fbLoginPresenter.finishActivity(Activity.RESULT_CANCELED);
     }
 
     @Override
     public void onError(FacebookException e) {
-        Log.e(TAG, "facebook login failed error");
+        Log.e(TAG, "페이스북 로그인 에러");
         fbLoginPresenter.finishActivity(Activity.RESULT_CANCELED);
     }
 }

@@ -1,8 +1,8 @@
 package com.momori.wepic.presenter.impl;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.momori.wepic.activity.FbLoginActivity;
@@ -33,17 +33,18 @@ public class StartPresenterImpl implements StartPresenter {
 
     // 최초 앱 실행시 초기화
     public void initApplication(){
+        Log.v(TAG, "앱 초기화 셋팅합니다.");
         Context context = this.activity.getApplicationContext();
         SFValue.initInstance(context);
-        GcmComponent.initInstance(context);
         FbComponent.initFbComponent(context);
+        GcmComponent.initInstance(this.activity);
     }
 
     public boolean isReadyToLogin(){
         if(!FbComponent.getInstance().isAccessTokenValid()){
             facebookLogin();
             return false;
-        }else if(getGcmRegId().isEmpty()){
+        }else if(getRegId().isEmpty()){
             return false;
         }else{
             return true;
@@ -51,16 +52,9 @@ public class StartPresenterImpl implements StartPresenter {
     }
 
     private void facebookLogin() {
-        final StartModel startModel = this.startModel;
-        final StartActivity activity = this.activity;
-        new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] params) {
-                Intent intent = new Intent(activity, FbLoginActivity.class);
-                activity.startActivityForResult(intent, FBLOGINACTIVITY_REQEST);
-                return null;
-            }
-        }.execute(null, null, null);
+        Log.d(TAG, "Facebook 로그인 Activity 시작");
+        Intent intent = new Intent(activity, FbLoginActivity.class);
+        activity.startActivityForResult(intent, FBLOGINACTIVITY_REQEST);
     }
 
     public void wepicLogin(){
@@ -71,33 +65,45 @@ public class StartPresenterImpl implements StartPresenter {
         }
     }
 
-    private String getGcmRegId(){
-        String gcm_reg_id =this.startModel.getGcm_reg_id();
-        if(gcm_reg_id.isEmpty()){
+    private String getRegId(){
+        String reg_id =this.startModel.getReg_id();
+        if(reg_id.isEmpty()){
             GcmComponent gcmComponent = GcmComponent.getInstance();
-            gcm_reg_id = gcmComponent.getGcmRegId();
-            if(gcm_reg_id.isEmpty()){
-                registGcmRegId(this.activity, this.startModel);
+            reg_id = gcmComponent.getRegId();
+            if(reg_id.isEmpty()){
+                Log.i(TAG, "reg_id 를 신규 등록합니다.");
+                registRegId(this.activity, this.startModel);
             }else{
-                this.startModel.setGcm_reg_id(gcm_reg_id);
+                this.startModel.setReg_id(reg_id);
             }
         }
-        return gcm_reg_id;
+        return reg_id;
     }
 
-    private void registGcmRegId(final StartActivity activity, final StartModel startModel){
-        GcmComponent.getInstance().registGcmRegId(activity, new AsyncCallback.AsyncResult<String>() {
+    private void registRegId(final StartActivity activity, final StartModel startModel){
+        GcmComponent.getInstance().registRegId(new AsyncCallback.AsyncResult<String>() {
             @Override
             public void onResult(String result) {
-                startModel.setGcm_reg_id(result);
+                Log.d(TAG, "reg_id : " + result + " startModel에 셋팅");
+                startModel.setReg_id(result);
                 activity.checkReadyAndLogin();
             }
+
             @Override
             public void exceptionOccured(Exception e) {
-                Log.e(TAG, e.getMessage());
-                //TODO : 알람 후 앱종료
+                Log.e(TAG, "GCM 등록 실패 " + e.getMessage());
+                //TODO : 알람 후 확인 누르면 종료
             }
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode== Activity.RESULT_OK){
+            if(requestCode == FBLOGINACTIVITY_REQEST){
+                Log.i(TAG, "페이스북 계정 확인 완료, 다시 로그인 준비를 체크하고 로그인 합니다.");
+                this.activity.checkReadyAndLogin();
+            }
+        }
     }
 
     private void startMainActivity(){

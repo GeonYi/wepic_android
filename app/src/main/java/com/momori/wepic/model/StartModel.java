@@ -6,7 +6,7 @@ package com.momori.wepic.model;
 public class StartModel {
 
     private String fb_user_id = "";
-    private String gcm_reg_id = "";
+    private String reg_id = "";
 
     public String getFb_user_id() {
         return fb_user_id;
@@ -16,11 +16,11 @@ public class StartModel {
         this.fb_user_id = fb_user_id;
     }
 
-    public String getGcm_reg_id() {
-        return gcm_reg_id;
+    public String getReg_id() {
+        return reg_id;
     }
 
-    public void setGcm_reg_id(String gcm_reg_id) {
-        this.gcm_reg_id = gcm_reg_id;
+    public void setReg_id(String reg_id) {
+        this.reg_id = reg_id;
     }
 }

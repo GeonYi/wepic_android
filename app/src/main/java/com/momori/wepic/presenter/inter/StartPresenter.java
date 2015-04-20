@@ -13,4 +13,5 @@ public interface StartPresenter {
 
     public void wepicLogin();
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data);
 }
