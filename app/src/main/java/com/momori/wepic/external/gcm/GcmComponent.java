@@ -25,6 +25,7 @@ public class GcmComponent{
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private static GcmComponent gcmComponent;
+    private String reg_id = "";
 
     public static void initInstance(Activity activity){
         gcmComponent = new GcmComponent(activity.getApplicationContext());
@@ -45,7 +46,10 @@ public class GcmComponent{
     }
 
     public String getRegId(){
-        return getRegIdFromPreferences();
+        if(this.reg_id.isEmpty()){
+            this.reg_id = getRegIdFromPreferences();
+        }
+        return this.reg_id;
     }
 
     public void registRegId(final AsyncCallback<String> callback){

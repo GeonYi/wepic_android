@@ -12,7 +12,6 @@ import com.momori.wepic.common.SFValue;
 import com.momori.wepic.common.callback.AsyncCallback;
 import com.momori.wepic.external.facebook.FbComponent;
 import com.momori.wepic.external.gcm.GcmComponent;
-import com.momori.wepic.model.StartModel;
 import com.momori.wepic.presenter.inter.StartPresenter;
 
 
@@ -24,11 +23,9 @@ public class StartPresenterImpl implements StartPresenter {
     private final int FBLOGINACTIVITY_REQEST = 1000;
 
     private StartActivity activity;
-    private StartModel startModel;
 
     public StartPresenterImpl(StartActivity startActivity) {
         this.activity = startActivity;
-        this.startModel = new StartModel();
     }
 
     // 최초 앱 실행시 초기화
@@ -66,26 +63,20 @@ public class StartPresenterImpl implements StartPresenter {
     }
 
     private String getRegId(){
-        String reg_id =this.startModel.getReg_id();
+        GcmComponent gcmComponent = GcmComponent.getInstance();
+        String reg_id = gcmComponent.getRegId();
         if(reg_id.isEmpty()){
-            GcmComponent gcmComponent = GcmComponent.getInstance();
-            reg_id = gcmComponent.getRegId();
-            if(reg_id.isEmpty()){
-                Log.i(TAG, "reg_id 를 신규 등록합니다.");
-                registRegId(this.activity, this.startModel);
-            }else{
-                this.startModel.setReg_id(reg_id);
-            }
+            Log.i(TAG, "reg_id 를 신규 등록합니다.");
+            registRegId(this.activity);
         }
         return reg_id;
     }
 
-    private void registRegId(final StartActivity activity, final StartModel startModel){
+    private void registRegId(final StartActivity activity){
         GcmComponent.getInstance().registRegId(new AsyncCallback.AsyncResult<String>() {
             @Override
             public void onResult(String result) {
-                Log.d(TAG, "reg_id : " + result + " startModel에 셋팅");
-                startModel.setReg_id(result);
+                Log.d(TAG, "reg_id : " + result);
                 activity.checkReadyAndLogin();
             }
 
