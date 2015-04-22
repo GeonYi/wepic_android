@@ -15,6 +15,17 @@ import retrofit.http.POST;
 public interface UserPostHelper {
 
     @FormUrlEncoded
+    @POST(Const.URI_USER_FBREG)
+    ResLogInModel loginFbUser(
+            @Field("user_email") String user_email,
+            @Field("external_id") String external_id,
+            @Field("dev_id") String dev_id,
+            @Field("dev_number") String dev_number,
+            @Field("dev_platform") String dev_platform,
+            @Field("dev_reg_id") String dev_reg_id
+    );
+
+    @FormUrlEncoded
     @POST(Const.URI_USER_REG)
     ResCommonModel regUser(
             @Field("user_email") String userEmail,
@@ -22,17 +33,6 @@ public interface UserPostHelper {
             @Field("user_name") String userName,
             @Field("dev_number") String devNumber,
             @Field("dev_platform") String devPlatform
-    );
-
-    @FormUrlEncoded
-    @POST(Const.URI_USER_LOGIN)
-    ResLogInModel loginUser(
-            @Field("user_email") String user_email,
-            @Field("external_id") String external_id,
-            @Field("dev_id") String dev_id,
-            @Field("dev_number") String dev_number,
-            @Field("dev_platform") String dev_platform,
-            @Field("dev_reg_id") String dev_reg_id
     );
 
     @FormUrlEncoded

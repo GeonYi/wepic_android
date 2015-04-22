@@ -7,11 +7,9 @@ import android.content.Intent;
  */
 public interface StartPresenter {
 
-    public void initApplication();
-
     public boolean isReadyToLogin();
 
-    public void wepicLogin();
+    public void startRegistOrLogin();
 
     public void onActivityResult(int requestCode, int resultCode, Intent data);
 }

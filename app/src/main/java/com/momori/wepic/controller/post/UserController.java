@@ -32,9 +32,10 @@ public class UserController {
         regUserHelper = this.restAdapter.create(UserPostHelper.class);
     }
 
-    public ResLogInModel fbLoginUser(){
+    // 페이스북 회원가입 및 로그인
+    public ResLogInModel loginFbUser(){
         UserDeviceModel userDeviceModel = user.getUserDevice();
-        return regUserHelper.loginUser(user.getUser_email(), user.getExternal_id()
+        return regUserHelper.loginFbUser(user.getUser_email(), user.getExternal_id()
                 , userDeviceModel.getDev_id(), userDeviceModel.getDev_number()
                 , userDeviceModel.getDev_platform(), userDeviceModel.getDev_reg_id());
     }

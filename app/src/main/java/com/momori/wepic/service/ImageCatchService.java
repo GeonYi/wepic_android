@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.momori.wepic.WepicApplication;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.controller.post.ImageController;
@@ -55,7 +56,7 @@ public class ImageCatchService extends Service {
         Toast.makeText(this, "서비스 onStartCommand", Toast.LENGTH_SHORT).show();
         this.preTime = Long.valueOf(String.valueOf(System.currentTimeMillis()).substring(0, 10));
 
-        SFValue pref = SFValue.getInstance();
+        SFValue pref = ((WepicApplication)getApplicationContext()).getSfValue();
         this.userId  = pref.getValue(SFValue.PREF_USER_ID , Const.SF_NULL_INT);
         this.albumId = pref.getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT);
 

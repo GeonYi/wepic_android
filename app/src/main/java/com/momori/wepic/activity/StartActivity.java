@@ -26,30 +26,9 @@ public class StartActivity extends Activity{
 
         Log.i(TAG, "StartActivity 시작");
         this.startPresenter = new StartPresenterImpl(StartActivity.this);
-        initApplication();
+        checkReadyAndLogin();
     }
 
-    public void initApplication(){
-        Log.d(TAG , "백그라운드로 앱 설정을 초기화 한다.");
-        new AsyncTask<StartPresenter, Void, Void>() {
-
-            StartPresenter startPresenter;
-
-            @Override
-            protected Void doInBackground(StartPresenter[] params) {
-                Log.i(TAG, "앱 설정을 초기화 한다.");
-                this.startPresenter = params[0];
-                this.startPresenter.initApplication();
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void v){
-                  Log.i(TAG, "Wepic App 초기화 완료");
-                  checkReadyAndLogin();
-            }
-        }.execute(this.startPresenter);
-    }
 
     public void checkReadyAndLogin() {
         Log.d(TAG , "백그라운드로 로그인 준비 여부를 체크하고 준비완료되면, 위픽로그인 한다.");
@@ -80,7 +59,7 @@ public class StartActivity extends Activity{
 
             @Override
             protected Void doInBackground(StartPresenter[] params) {
-                params[0].wepicLogin();
+                params[0].startRegistOrLogin();
                 return null;
             }
         }.execute(this.startPresenter);

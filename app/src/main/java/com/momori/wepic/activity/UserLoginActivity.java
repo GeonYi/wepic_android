@@ -8,6 +8,7 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.momori.wepic.R;
+import com.momori.wepic.WepicApplication;
 import com.momori.wepic.activity.material.ContactEditText;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.Func;
@@ -38,7 +39,7 @@ public class UserLoginActivity extends Activity{
     ResLogInModel       resLogIn    ;
     ResShareAlbumModel  resShareAlbum   ;
 
-    SFValue pref = SFValue.getInstance();
+    SFValue pref = ((WepicApplication)getApplicationContext()).getSfValue();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

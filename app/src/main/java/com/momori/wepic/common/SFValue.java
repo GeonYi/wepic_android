@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.momori.wepic.WepicApplication;
+
 /**
  * Created by sec on 2015-04-10.
  */
@@ -25,20 +27,11 @@ public final class SFValue {
     public final static  String PREF_REG_ID = "PREF_REG_ID"; //API Key
     public final static  String PREF_APP_VERSION = "PREF_APPVERSION";
 
-    private static SFValue sfValue;
-    static Context mContext;
+    static WepicApplication mContext;
 
-    public static void initInstance(Context context){
-        sfValue = new SFValue(context);
-        Log.d(TAG, "SFValue 싱글톤 객체 생성");
-    }
-
-    public static SFValue getInstance(){
-        return sfValue;
-    }
-
-    private SFValue(Context context) {
+    public SFValue(WepicApplication context) {
         this.mContext = context;
+        Log.d(TAG, "SFValue 객체 생성");
     }
 
 

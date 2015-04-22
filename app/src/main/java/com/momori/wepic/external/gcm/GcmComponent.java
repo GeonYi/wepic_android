@@ -1,7 +1,6 @@
 package com.momori.wepic.external.gcm;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -10,6 +9,7 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.momori.wepic.WepicApplication;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.common.callback.AsyncCallback;
 
@@ -24,25 +24,15 @@ public class GcmComponent{
     private final String SENDER_ID = "1096401096792"; // Project-Number
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    private static GcmComponent gcmComponent;
     private String reg_id = "";
 
-    public static void initInstance(Activity activity){
-        gcmComponent = new GcmComponent(activity.getApplicationContext());
-        Log.d(TAG, "GcmComponent 싱글톤 객체 생성");
-        gcmComponent.checkPlayServices(activity);
-        Log.d(TAG, "GCM Play Service 체크 완료");
-    }
-    public static GcmComponent getInstance(){
-        return gcmComponent;
-    }
-
-    private Context context;
+    private WepicApplication context;
     private GoogleCloudMessaging gcm;
 
-    private GcmComponent(Context context){
+    public GcmComponent(WepicApplication context){
         this.context = context;
         this.gcm = GoogleCloudMessaging.getInstance(context);
+        Log.d(TAG, "GcmComponent 객체 생성");
     }
 
     public String getRegId(){
@@ -102,7 +92,7 @@ public class GcmComponent{
     }
 
     private boolean isAppVersionChanged(){
-        int registeredAppVersion = SFValue.getInstance().getValue(SFValue.PREF_APP_VERSION, Integer.MIN_VALUE);
+        int registeredAppVersion = this.context.getSfValue().getValue(SFValue.PREF_APP_VERSION, Integer.MIN_VALUE);
         int currentVersion = getAppVersion();
         if(registeredAppVersion != currentVersion){
             Log.i(TAG, "App version changed.");
@@ -123,7 +113,7 @@ public class GcmComponent{
     }
 
     private String getRegIdFromPreferences(){
-        String gcm_reg_id =  SFValue.getInstance().getValue(SFValue.PREF_REG_ID, "");
+        String gcm_reg_id =  this.context.getSfValue().getValue(SFValue.PREF_REG_ID, "");
         if(gcm_reg_id.isEmpty()){
             Log.i(TAG, "REG_ID not found");
             return "";
@@ -137,7 +127,7 @@ public class GcmComponent{
     }
 
     private void storeRegIdToPreferences(String gcm_reg_id){
-        SFValue.getInstance().put(SFValue.PREF_REG_ID, gcm_reg_id);
-        SFValue.getInstance().put(SFValue.PREF_APP_VERSION, getAppVersion());
+        this.context.getSfValue().put(SFValue.PREF_REG_ID, gcm_reg_id);
+        this.context.getSfValue().put(SFValue.PREF_APP_VERSION, getAppVersion());
     }
 }
