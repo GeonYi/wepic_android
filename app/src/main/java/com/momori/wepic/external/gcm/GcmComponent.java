@@ -29,8 +29,8 @@ public class GcmComponent{
     private WepicApplication context;
     private GoogleCloudMessaging gcm;
 
-    public GcmComponent(WepicApplication context){
-        this.context = context;
+    public GcmComponent(){
+        this.context = WepicApplication.getInstance();
         this.gcm = GoogleCloudMessaging.getInstance(context);
         Log.d(TAG, "GcmComponent 객체 생성");
     }

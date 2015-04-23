@@ -27,11 +27,11 @@ public final class SFValue {
     public final static  String PREF_REG_ID = "PREF_REG_ID"; //API Key
     public final static  String PREF_APP_VERSION = "PREF_APPVERSION";
 
-    static WepicApplication mContext;
+    private WepicApplication mContext;
 
-    public SFValue(WepicApplication context) {
-        this.mContext = context;
+    public SFValue() {
         Log.d(TAG, "SFValue 객체 생성");
+        mContext = WepicApplication.getInstance();
     }
 
 

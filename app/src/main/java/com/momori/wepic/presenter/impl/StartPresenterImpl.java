@@ -34,7 +34,7 @@ public class StartPresenterImpl implements StartPresenter {
 
     public StartPresenterImpl(StartActivity startActivity) {
         this.activity = startActivity;
-        this.context= (WepicApplication)this.activity.getApplicationContext();
+        this.context= WepicApplication.getInstance();
     }
 
 
@@ -93,7 +93,10 @@ public class StartPresenterImpl implements StartPresenter {
             }
 
             if(!user_id.isEmpty()){
+                // 친구 정보 동기화
+                this.context.getFbComponent().syncFriends();
                 startMainActivity(user_id);
+
             }else{
                 //TODO : 로그인 실패 알람띄우고 종료
             }

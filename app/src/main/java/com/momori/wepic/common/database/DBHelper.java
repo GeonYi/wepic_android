@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "wipicdatabase.db";
-    private static final int DATABASE_VERSION = 0;
+    private static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db){
-       db.execSQL("CREATE TABLE FRIENDS (user_id TEXT PRIMARY KEY, fb_user_id TEXT, name TEXT);");
+       db.execSQL("CREATE TABLE FRIENDS (user_id TEXT PRIMARY KEY, external_id TEXT, name TEXT);");
        db.execSQL("CREATE TABLE FRIENDS_PICTURE (user_id TEXT PRIMARY KEY, picture_url TEXT, picture BLOB" +
                ", CONSTRAINT user_id_fk FOREIGN KEY(user_id) REFERENCES USER(user_id) );");
     }
