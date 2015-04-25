@@ -59,7 +59,7 @@ public class StartActivity extends Activity{
 
             @Override
             protected Void doInBackground(StartPresenter[] params) {
-                params[0].startRegistOrLogin();
+                params[0].startLogin();
                 return null;
             }
         }.execute(this.startPresenter);

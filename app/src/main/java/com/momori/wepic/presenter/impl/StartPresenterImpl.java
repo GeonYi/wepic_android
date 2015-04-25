@@ -82,7 +82,7 @@ public class StartPresenterImpl implements StartPresenter {
         });
     }
 
-    public void startRegistOrLogin(){
+    public void startLogin(){
         if(isReadyToLogin()){
             String user_id = "";
             if(!this.context.isLoggedin()){

@@ -58,10 +58,13 @@ public class MainActivity extends ActionBarActivity {
      *  - 해당 email로 push메세지 전송
      * */
     @OnClick(R.id.main_button_invite)
-    public void invateButtonOnclick() {
+    public void inviteButtonOnclick() {
         //PROCESS
-        String[] friendList = new String[Const.MAX_INVATE_CNT];
-        friendList[0] = "test@gmail.com";
+       // String[] friendList = new String[Const.MAX_INVATE_CNT];
+        //friendList[0] = "test@gmail.com";
+
+        Intent intent = new Intent(MainActivity.this, InviteActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.main_button_shareStart)

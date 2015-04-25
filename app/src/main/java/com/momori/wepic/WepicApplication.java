@@ -1,7 +1,6 @@
 package com.momori.wepic;
 
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 
 import com.momori.wepic.common.SFValue;

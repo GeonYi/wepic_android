@@ -13,6 +13,7 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.momori.wepic.WepicApplication;
 import com.momori.wepic.model.UserModel;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +23,8 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hyeon on 2015-04-19.
@@ -29,12 +32,13 @@ import java.net.URL;
 public class FbComponent {
     static final String TAG = FbComponent.class.getName();
 
-    private WepicApplication context;
+    private WepicApplication app;
     private ProfileTracker profileTracker;
 
     public FbComponent() {
+        this.app = WepicApplication.getInstance();
         if(!FacebookSdk.isInitialized()){
-            FacebookSdk.sdkInitialize(context);
+            FacebookSdk.sdkInitialize(app);
             Log.i(TAG, "FacebookSdk 초기화");
         }
         this.profileTracker = new ProfileTracker() {
@@ -46,7 +50,6 @@ public class FbComponent {
 
         AccessToken.getCurrentAccessToken();
         Profile.getCurrentProfile();
-        this.context = WepicApplication.getInstance();
         Log.d(TAG, "FbComponent 객체 생성");
     }
 
@@ -74,66 +77,47 @@ public class FbComponent {
         GraphResponse response = request.executeAndWait();
         JSONObject result = response.getJSONObject();
 
-        UserModel loginUser = this.context.getLoginUser();
+        UserModel loginUser = this.app.getLoginUser();
         String fb_user_id = result.optString("id");
         loginUser.setExternal_id(fb_user_id);
         loginUser.setUser_email(result.optString("email"));
         loginUser.setUser_name(result.optString("name"));
 
-        Bitmap user_picture = getFbUserPicture(fb_user_id, "small");
-        loginUser.setUser_picture(user_picture);
-
         return loginUser;
     }
 
-    private Bitmap getFbUserPicture(String fb_user_id, String type){
-        HttpURLConnection urlConnection = null;
-        InputStream in = null;
-        try{
-            URL url = new URL("https://graph.facebook.com/"+fb_user_id+"/picture?type="+ type);
-            urlConnection = (HttpURLConnection)url.openConnection();
-            in = new BufferedInputStream(urlConnection.getInputStream());
-
-        }catch(Exception e){
-            Log.e(TAG, "Facebook 사용자 프로필 조회 실패 : " + e.getMessage());
-            new RuntimeException(e);
-        }finally {
-            if(in!=null) try{in.close();}catch(Exception e){}
-            if(urlConnection!=null) try{urlConnection.disconnect();}catch(Exception e){}
-        }
-
-        return BitmapFactory.decodeStream(in);
+    public String getPictureUrl(String fb_user_id, String type){
+        return "https://graph.facebook.com/"+fb_user_id+"/picture?type="+type;
     }
 
-    public void syncFriends(){
-        new AsyncTask(){
-            @Override
-            protected Object doInBackground(Object[] params) {
-             try{
 
-                Log.i(TAG, "Facebook 친구 정보를 가져옵니다.");
-                GraphRequest request = new GraphRequest(AccessToken.getCurrentAccessToken(),"/me/friends" );
-                GraphResponse response = request.executeAndWait();
-                JSONObject result = response.getJSONObject();
-                JSONArray array = result.getJSONArray("data");
+    public List<UserModel> getFbFriendsList(){
 
-                int length = array.length();
-                for(int i=0; i< length; i++){
-                    JSONObject friendJson = array.getJSONObject(i);
+        List<UserModel> friendList = new ArrayList<UserModel>();
 
-                    UserModel friend = new UserModel();
-                    friend.setExternal_id(friendJson.optString("id"));
-                    friend.setUser_email(friendJson.optString("name"));
+        try{
+            Log.i(TAG, "Facebook 친구 정보를 가져옵니다.");
+            GraphRequest request = new GraphRequest(AccessToken.getCurrentAccessToken(),"/me/friends" );
+            GraphResponse response = request.executeAndWait();
+            JSONObject result = response.getJSONObject();
+            JSONArray array = result.getJSONArray("data");
 
-                    // TODO : user_id를 얻어온 후 DB 에 동기화 해야함
-                }
+            int length = array.length();
+            for(int i=0; i< length; i++){
+                JSONObject friendJson = array.getJSONObject(i);
 
-             } catch (JSONException e) {
-                Log.e(TAG, "Facebook 친구 정보 조회 실패 : " + e.getMessage());
-                new RuntimeException(e);
+                UserModel friend = new UserModel();
+                String id = friendJson.optString("id");
+                friend.setExternal_id(id);
+                friend.setUser_name(friendJson.optString("name"));
+
+                friendList.add(friend);
             }
-                return null;
-            }
-        }.execute();
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Facebook 친구 정보 조회 실패 : " + e.getMessage());
+            new RuntimeException(e);
+        }
+        return friendList;
     }
 }

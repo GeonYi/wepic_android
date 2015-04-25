@@ -9,7 +9,7 @@ public interface StartPresenter {
 
     public boolean isReadyToLogin();
 
-    public void startRegistOrLogin();
+    public void startLogin();
 
     public void onActivityResult(int requestCode, int resultCode, Intent data);
 }

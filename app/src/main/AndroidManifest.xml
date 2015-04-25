@@ -63,6 +63,7 @@
             android:label="@string/title_activity_user_reg" >
         </activity>
 
+        <activity android:name=".activity.InviteActivity"/>
         <activity android:name=".activity.NotificationActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
