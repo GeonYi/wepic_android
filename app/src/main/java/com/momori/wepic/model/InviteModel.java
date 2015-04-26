@@ -2,6 +2,7 @@ package com.momori.wepic.model;
 
 import com.momori.wepic.WepicApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,9 +10,11 @@ import java.util.List;
  */
 public class InviteModel {
 
-    private List<UserModel> inviteList;
-
     private WepicApplication context;
+
+
+    private List<UserModel> inviteList;
+    private List<String> selectedList;
 
     public InviteModel(){
         this.context = WepicApplication.getInstance();
@@ -26,5 +29,24 @@ public class InviteModel {
 
     public void setInviteList(List<UserModel> inviteList) {
         this.inviteList = inviteList;
+    }
+
+    public List<String> getSelectedList() {
+        if(selectedList==null){
+            this.selectedList = new ArrayList<>();
+        }
+        return selectedList;
+    }
+
+    public void setSelectedList(List<String> selectedList) {
+        this.selectedList = selectedList;
+    }
+
+    public void addSelectedExternal_id(String external_id){
+        getSelectedList().add(external_id);
+    }
+
+    public void removeSelectedExternal_id(String external_id){
+        getSelectedList().remove(external_id);
     }
 }
