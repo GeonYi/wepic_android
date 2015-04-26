@@ -4,6 +4,41 @@
     android:layout_height="fill_parent">
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ff787877"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="#ffffffff"
+            android:layout_marginRight="5dp"
+            android:text="앨범 공유상대 초대" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="#ffffde0e"
+            android:text="0"
+            android:numeric="integer" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="#ffffffff"
+            android:text="확인"
+            android:clickable="true"
+            android:gravity="right" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:focusable="true"
@@ -15,12 +50,14 @@
             android:id="@+id/invite_edit"
             android:layout_height="wrap_content">
         </EditText>
-
     </LinearLayout>
 
      <ListView
             android:id="@+id/inviteList"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_height="fill_parent"
+         android:clickable="false" />
+
+
 
 </LinearLayout>

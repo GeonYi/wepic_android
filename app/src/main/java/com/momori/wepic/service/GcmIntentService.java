@@ -13,6 +13,7 @@ import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.momori.wepic.R;
 import com.momori.wepic.activity.NotificationActivity;
+import com.momori.wepic.activity.StartActivity;
 import com.momori.wepic.external.gcm.GcmBroadcastReceiver;
 
 /**
@@ -42,19 +43,8 @@ public class GcmIntentService extends IntentService{
             }else if(GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)){
                 sendNotification("Deleted messages on server : " + extras.toString());
             }else if(GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)){
-
-                for(int i=0; i<5; i++){
-                    Log.i(TAG, "Working... " + (i+1) + "/5 @" + SystemClock.elapsedRealtime());
-                    try{
-                        Thread.sleep(5000);
-                    }catch(InterruptedException e){
-                    }
-                    Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-
-                    sendNotification("Received: " + extras.toString());
-                    Log.i(TAG, "Received: " + extras.toString());
-                }
-
+                String msg = intent.getStringExtra("msg");
+                sendNotification("Received: " + extras.toString());
                 GcmBroadcastReceiver.completeWakefulIntent(intent);
             }
         }
@@ -64,7 +54,7 @@ public class GcmIntentService extends IntentService{
         mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, NotificationActivity.class), 0);
+                new Intent(this, StartActivity.class), 0);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_user)

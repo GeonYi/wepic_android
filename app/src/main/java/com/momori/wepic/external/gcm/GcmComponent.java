@@ -80,14 +80,12 @@ public class GcmComponent{
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
         if(resultCode != ConnectionResult.SUCCESS){
             if(GooglePlayServicesUtil.isUserRecoverableError(resultCode)){
+                Log.e(TAG, "No valid Google Play Services APK found.");
                 GooglePlayServicesUtil.getErrorDialog(resultCode, activity ,PLAY_SERVICES_RESOLUTION_REQUEST).show();
             }else{
                 Log.e(TAG, "This device is not supported.");
                 // TODO: alert 띄우고 확인 누르면 종료
             }
-        }else{
-            Log.e(TAG, "No valid Google Play Services APK found.");
-            // TODO: alert 띄우고 확인 누르면 종료
         }
     }
 

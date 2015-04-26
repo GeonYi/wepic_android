@@ -20,4 +20,10 @@
         android:textSize="20dp"
         android:textColor="#ff000000" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/inviteCheckBox"
+        android:layout_gravity="right" />
+
 </LinearLayout>

@@ -45,8 +45,13 @@ public class InviteListAdapter extends BaseAdapter {
     }
 
     @Override
+    // 호출 하지 않는다.
     public long getItemId(int position) {
         return 0;
+    }
+
+    public String getExternal_Id(int position){
+        return ((UserModel)getItem(position)).getExternal_id();
     }
 
 
