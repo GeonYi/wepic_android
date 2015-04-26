@@ -86,8 +86,8 @@ public class FbComponent {
         return loginUser;
     }
 
-    public String getPictureUrl(String fb_user_id, String type){
-        return "https://graph.facebook.com/"+fb_user_id+"/picture?type="+type;
+    public String getPictureUrl(String fb_user_id, int width, int height){
+        return "https://graph.facebook.com/"+fb_user_id+"/picture?width="+width+"&height="+height;
     }
 
 

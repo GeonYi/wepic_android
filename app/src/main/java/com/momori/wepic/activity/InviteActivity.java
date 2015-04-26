@@ -48,7 +48,11 @@ public class InviteActivity extends Activity{
 
             @Override
             protected List<UserModel> doInBackground(Object[] params) {
-                return  context.getFbComponent().getFbFriendsList();
+                List<UserModel> friendList=  context.getFbComponent().getFbFriendsList();
+
+                //TODO: 테스트를 위해 로그인 유저 포함 지워야한다.
+                friendList.add(0, context.getLoginUser());
+                return friendList;
             }
 
             @Override
@@ -97,13 +101,14 @@ public class InviteActivity extends Activity{
         public View getView(final int position, View convertView, ViewGroup parent){
             if(convertView == null){
                 convertView = this.inflater.inflate(this.layout, null);
-                UserModel friend = this.list.get(position);
-                ImageView pictureView = (ImageView)convertView.findViewById(R.id.invitePicture);
-                ImageLoader.getInstance().displayImage(this.context.getFbComponent().getPictureUrl(friend.getExternal_id(), "large"), pictureView);
-
-                TextView nameView = (TextView)convertView.findViewById(R.id.inviteName);
-                nameView.setText(friend.getUser_name());
             }
+
+            UserModel friend = this.list.get(position);
+            ImageView pictureView = (ImageView)convertView.findViewById(R.id.invitePicture);
+            ImageLoader.getInstance().displayImage(this.context.getFbComponent().getPictureUrl(friend.getExternal_id(), 100, 100), pictureView);
+
+            TextView nameView = (TextView)convertView.findViewById(R.id.inviteName);
+            nameView.setText(friend.getUser_name());
 
             return convertView;
         }
