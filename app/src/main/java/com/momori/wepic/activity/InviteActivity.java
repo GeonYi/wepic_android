@@ -18,6 +18,9 @@ import com.momori.wepic.R;
 import com.momori.wepic.WepicApplication;
 import com.momori.wepic.external.facebook.FbComponent;
 import com.momori.wepic.model.UserModel;
+import com.momori.wepic.presenter.adapter.InviteListAdapter;
+import com.momori.wepic.presenter.impl.InvitePresenterImpl;
+import com.momori.wepic.presenter.inter.InvitePresenter;
 import com.momori.wepic.presenter.inter.StartPresenter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -31,86 +34,26 @@ import java.util.List;
 /**
  * Created by Hyeon on 2015-04-23.
  */
-public class InviteActivity extends Activity{
+public class InviteActivity extends Activity implements InvitePresenter.View{
+    static final String TAG = InviteActivity.class.getName();
 
-    private WepicApplication context;
+    private InvitePresenter invitePresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite);
-        this.context = (WepicApplication)getApplicationContext();
-        showInviteList();
+        this.invitePresenter = new InvitePresenterImpl(InviteActivity.this);
+        this.invitePresenter.setView(this);
+
+        Log.i(TAG, "초대 화면 시작");
+        invitePresenter.initInviteActivity();
     }
 
-    public void showInviteList(){
-        new AsyncTask<Object, Void, List<UserModel>>() {
-
-            @Override
-            protected List<UserModel> doInBackground(Object[] params) {
-                List<UserModel> friendList=  context.getFbComponent().getFbFriendsList();
-
-                //TODO: 테스트를 위해 로그인 유저 포함 지워야한다.
-                friendList.add(0, context.getLoginUser());
-                return friendList;
-            }
-
-            @Override
-            protected void onPostExecute(List<UserModel> friendList){
-                UserModelAdapter inviteListAdapter = new UserModelAdapter(context, R.layout.activity_invite_list_item, friendList);
-
-                ListView inviteList = (ListView)findViewById(R.id.inviteList);
-                inviteList.setAdapter(inviteListAdapter);
-            }
-        }.execute();
-
+    @Override
+    public void showInviteList(InviteListAdapter adapter){
+        ListView inviteList = (ListView)findViewById(R.id.inviteList);
+        inviteList.setAdapter(adapter);
     }
 
-    class UserModelAdapter extends BaseAdapter{
-
-        WepicApplication context;
-        LayoutInflater inflater;
-        List<UserModel> list;
-        int layout;
-
-        public UserModelAdapter(WepicApplication context, int layout, List<UserModel> list){
-            this. context= context;
-            //this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.inflater =  LayoutInflater.from(context);
-            this.list = list;
-            this.layout = layout;
-        }
-
-        @Override
-        public int getCount(){
-            return this.list.size();
-        }
-
-        @Override
-        public Object getItem(int position){
-            return this.list.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent){
-            if(convertView == null){
-                convertView = this.inflater.inflate(this.layout, null);
-            }
-
-            UserModel friend = this.list.get(position);
-            ImageView pictureView = (ImageView)convertView.findViewById(R.id.invitePicture);
-            ImageLoader.getInstance().displayImage(this.context.getFbComponent().getPictureUrl(friend.getExternal_id(), 100, 100), pictureView);
-
-            TextView nameView = (TextView)convertView.findViewById(R.id.inviteName);
-            nameView.setText(friend.getUser_name());
-
-            return convertView;
-        }
-    }
 }

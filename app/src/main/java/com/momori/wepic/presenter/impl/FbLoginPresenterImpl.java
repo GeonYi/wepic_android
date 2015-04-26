@@ -11,6 +11,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.momori.wepic.activity.FbLoginActivity;
 import com.momori.wepic.external.facebook.FbLoginCallback;
+import com.momori.wepic.model.FbLoginModel;
 import com.momori.wepic.presenter.inter.FbLoginPresenter;
 
 import java.util.Arrays;
@@ -21,12 +22,9 @@ import java.util.Arrays;
 public class FbLoginPresenterImpl implements FbLoginPresenter {
     static final String TAG = FbLoginPresenterImpl.class.getName();
 
-    private static String[] PERMISSIONS = {"public_profile", "user_friends", "email"};
-
     private FbLoginActivity activity;
-    private View view;
-
-    CallbackManager callbackManager;
+    private FbLoginPresenter.View view;
+    private FbLoginModel model;
 
     public FbLoginPresenterImpl(FbLoginActivity activity){
         if(!FacebookSdk.isInitialized()){
@@ -34,7 +32,7 @@ public class FbLoginPresenterImpl implements FbLoginPresenter {
             Log.i(TAG, "FacebookSdk 초기화");
         }
         this.activity = activity;
-        this.callbackManager = CallbackManager.Factory.create();
+        this.model = new FbLoginModel(FbLoginPresenterImpl.this);
     }
 
     @Override
@@ -47,11 +45,9 @@ public class FbLoginPresenterImpl implements FbLoginPresenter {
         if(accessToken==null){
             Log.i(TAG, "Facebook AccessToken 없음. 페이스북 로그인 버튼 생성");
             view.showFbLoginButton();
-        }else if(accessToken.isExpired()){
-            Log.w(TAG, "Facebook AccessToken 기간 만료 : " + accessToken.getExpires().toString());
-            LoginManager loginManager = LoginManager.getInstance();
-            registCallback(loginManager);
-            loginManager.logInWithReadPermissions(this.activity, Arrays.asList(PERMISSIONS));
+        }else if(model.isRequireReLogin()){
+            Log.i(TAG, "Facebook 재로그인");
+            model.reLogin(this.activity);
         }else{
             Log.i(TAG, "Facebook AccessToken 확인 완료");
             finishActivity(Activity.RESULT_OK);
@@ -59,21 +55,13 @@ public class FbLoginPresenterImpl implements FbLoginPresenter {
     }
 
     public void registCallback(Object target){
-        if(target instanceof LoginManager){
-            LoginManager loginMananger = (LoginManager)target;
-            loginMananger.registerCallback(this.callbackManager, new FbLoginCallback(this));
-            Log.i(TAG, "Facebook LoginManager Callback 등록 완료");
-        }else if(target instanceof LoginButton){
-            LoginButton loginButton = (LoginButton)target;
-            loginButton.setReadPermissions(PERMISSIONS);
-            loginButton.registerCallback(this.callbackManager, new FbLoginCallback(this));
-            Log.i(TAG, "Facebook 로그인 버튼 Callback 등록 완료");
-        }
+        model.registCallback(target);
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == Activity.RESULT_OK)
-            callbackManager.onActivityResult(requestCode, resultCode, data);
+            model.registCallbackManagerOnActivityResult(requestCode, resultCode, data);
     }
 
     public void finishActivity(int resultCode){
