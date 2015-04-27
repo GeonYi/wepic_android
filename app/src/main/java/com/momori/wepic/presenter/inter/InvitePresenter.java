@@ -11,11 +11,15 @@ public interface InvitePresenter {
 
     public void initInviteActivity();
 
-    public void onSelect(android.view.View view, int position);
+    public void onSelectItem(android.view.View view, int position);
+
+    public void onConfirm();
 
     public void setView(View view);
 
     public interface View{
         void showInviteList(InviteListAdapter adapter);
+        void setSelectedCount(int count);
+        void enableConfirmText(boolean enable);
     }
 }

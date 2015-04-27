@@ -10,10 +10,15 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.momori.wepic.WepicApplication;
+import com.momori.wepic.common.Func;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.common.callback.AsyncCallback;
+import com.momori.wepic.controller.post.GcmController;
+import com.momori.wepic.model.UserModel;
+import com.momori.wepic.model.response.ResGcmInviteModel;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Hyeon on 2015-04-19.
@@ -29,9 +34,12 @@ public class GcmComponent{
     private WepicApplication context;
     private GoogleCloudMessaging gcm;
 
+    private GcmController controller;
+
     public GcmComponent(){
         this.context = WepicApplication.getInstance();
         this.gcm = GoogleCloudMessaging.getInstance(context);
+        this.controller = new GcmController();
         Log.d(TAG, "GcmComponent 객체 생성");
     }
 
@@ -127,5 +135,15 @@ public class GcmComponent{
     private void storeRegIdToPreferences(String gcm_reg_id){
         this.context.getSfValue().put(SFValue.PREF_REG_ID, gcm_reg_id);
         this.context.getSfValue().put(SFValue.PREF_APP_VERSION, getAppVersion());
+    }
+
+    public String sendInviteAlbum(UserModel loginUser, List<String> invite_external_ids, String album_id){
+        ResGcmInviteModel response = this.controller.inviteAlbum(loginUser, invite_external_ids, album_id);
+        if(Func.isPostSucc(response.getResult())){
+            return response.getAlbum_id();
+        }else{
+            Log.i(TAG, "초대 실패 : " + response.getAlbum_id());
+            return "";
+        }
     }
 }

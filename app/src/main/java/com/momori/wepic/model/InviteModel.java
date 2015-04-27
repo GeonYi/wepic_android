@@ -49,4 +49,9 @@ public class InviteModel {
     public void removeSelectedExternal_id(String external_id){
         getSelectedList().remove(external_id);
     }
+
+    public int getSelectedCount(){
+        if(this.selectedList==null) return 0;
+        return this.selectedList.size();
+    }
 }

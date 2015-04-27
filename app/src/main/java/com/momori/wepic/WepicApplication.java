@@ -11,6 +11,8 @@ import com.momori.wepic.model.UserModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.util.Locale;
+
 /**
  * Created by Hyeon on 2015-04-22.
  */
@@ -27,6 +29,7 @@ public class WepicApplication extends Application{
     private GcmComponent gcmComponent;
 
     private DBHandler dbHandler;
+    private Locale locale;
 
     @Override
     public void onCreate(){
@@ -52,6 +55,13 @@ public class WepicApplication extends Application{
     private void initImageLoader(){
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
+    }
+
+    public Locale getLocale(){
+        if(this.locale==null){
+            this.locale = this.getResources().getConfiguration().locale;
+        }
+        return this.locale;
     }
 
     public SFValue getSfValue() {

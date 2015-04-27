@@ -93,6 +93,7 @@ public class StartPresenterImpl implements StartPresenter {
             }
 
             if(!user_id.isEmpty()){
+                this.context.getLoginUser().setUser_id(user_id);
                 startMainActivity(user_id);
             }else{
                 //TODO : 로그인 실패 알람띄우고 종료

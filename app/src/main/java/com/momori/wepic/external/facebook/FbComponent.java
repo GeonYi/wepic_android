@@ -3,6 +3,7 @@ package com.momori.wepic.external.facebook;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -74,6 +75,10 @@ public class FbComponent {
 
         Log.i(TAG, "Facebook 사용자 정보를 가져옵니다.");
         GraphRequest request = new GraphRequest(AccessToken.getCurrentAccessToken(),"/me" );
+        Bundle parameters = new Bundle();
+        parameters.putString("locale", this.app.getLocale().getLanguage());
+        request.setParameters(parameters);
+
         GraphResponse response = request.executeAndWait();
         JSONObject result = response.getJSONObject();
 
@@ -98,6 +103,10 @@ public class FbComponent {
         try{
             Log.i(TAG, "Facebook 친구 정보를 가져옵니다.");
             GraphRequest request = new GraphRequest(AccessToken.getCurrentAccessToken(),"/me/friends" );
+            Bundle parameters = new Bundle();
+            parameters.putString("locale", this.app.getLocale().getLanguage());
+            request.setParameters(parameters);
+
             GraphResponse response = request.executeAndWait();
             JSONObject result = response.getJSONObject();
             JSONArray array = result.getJSONArray("data");

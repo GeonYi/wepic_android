@@ -81,13 +81,14 @@ public class InviteListAdapter extends BaseAdapter {
 
         // TODO 스크롤 플립 추가 http://blog.naver.com/yangace00/60136968668
         UserModel user = this.list.get(position);
-        setData(user, position ,viewHolder);
+        setData(user, viewHolder);
 
         return view;
     }
 
-    private void setData(UserModel user, int position , ViewHolder viewHolder){
+    private void setData(UserModel user,  ViewHolder viewHolder){
         viewHolder.nameView.setText(user.getUser_name());
+        viewHolder.pictureView.setImageResource(R.drawable.com_facebook_profile_picture_blank_portrait);
 
         String pictureUrl = this.context.getFbComponent().getPictureUrl(user.getExternal_id(), PICTURE_WIDTH, PICTURE_HEIGHT);
         ImageLoader.getInstance().displayImage(pictureUrl, viewHolder.pictureView);

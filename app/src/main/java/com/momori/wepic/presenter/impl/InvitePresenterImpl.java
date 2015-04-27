@@ -1,12 +1,17 @@
 package com.momori.wepic.presenter.impl;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
 import com.momori.wepic.R;
 import com.momori.wepic.WepicApplication;
+import com.momori.wepic.activity.AlbumViewActivity;
 import com.momori.wepic.activity.InviteActivity;
+import com.momori.wepic.activity.MainActivity;
+import com.momori.wepic.external.gcm.GcmComponent;
+import com.momori.wepic.model.AlbumModel;
 import com.momori.wepic.model.InviteModel;
 import com.momori.wepic.model.UserModel;
 import com.momori.wepic.activity.adapter.InviteListAdapter;
@@ -73,7 +78,7 @@ public class InvitePresenterImpl implements InvitePresenter{
         }.execute();
     }
 
-    public void onSelect(android.view.View view , int position){
+    public void onSelectItem(android.view.View view , int position){
        boolean isChecked = this.inviteListAdapter.toggleCheck(view);
        String selectedExternal_id = this.inviteListAdapter.getExternal_id(position);
        if(isChecked){
@@ -81,5 +86,43 @@ public class InvitePresenterImpl implements InvitePresenter{
        }else{
            this.model.removeSelectedExternal_id(selectedExternal_id);
        }
+       int selectedCount = this.model.getSelectedCount();
+       this.view.setSelectedCount(selectedCount);
+       this.view.enableConfirmText(selectedCount > 0);
+    }
+
+    @Override
+    public void onConfirm() {
+        UserModel loginUser = this.context.getLoginUser();
+        List<String> selectedList = this.model.getSelectedList();
+        sendInviteAlbum(loginUser, selectedList, null);
+    }
+
+    private void sendInviteAlbum(final UserModel loginUser, final List<String> selectedList, final String album_id){
+        new AsyncTask<Object, Void, String>(){
+            @Override
+            protected String doInBackground(Object[] params) {
+                return context.getGcmComponent().sendInviteAlbum(loginUser, selectedList, album_id);
+            }
+
+            @Override
+            protected void onPostExecute(String album_id){
+                if(!album_id.isEmpty()){
+                    startAlbumViewActivity(album_id);
+                }else{
+                    Log.e(TAG, "앨범 초대 실패");
+                    //TODO : 알람 띄우고 재시도 하도록 한다.
+                }
+            }
+        }.execute();
+    }
+
+    private void startAlbumViewActivity(String album_id){
+        Log.i(TAG, "AlbumViewActivity로 이동");
+        Intent intent = new Intent(this.activity, AlbumViewActivity.class);
+        intent.putExtra(AlbumModel.ALBUM_ID, album_id);
+
+        this.activity.finish();
+        this.activity.startActivity(intent);
     }
 }

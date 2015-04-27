@@ -14,23 +14,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
-            android:textColor="#ffffffff"
+            android:textColor="@android:color/white"
             android:layout_marginRight="5dp"
             android:text="앨범 공유상대 초대" />
 
         <TextView
+            android:id="@+id/inviteSelectedCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
-            android:textColor="#ffffde0e"
+            android:textColor="@android:color/holo_orange_light"
             android:text="0"
             android:numeric="integer" />
 
         <TextView
+            android:id="@+id/inviteConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15dp"
-            android:textColor="#ffffffff"
+            android:textColor="@android:color/darker_gray"
             android:text="확인"
             android:clickable="true"
             android:gravity="right" />
