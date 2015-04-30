@@ -14,7 +14,7 @@ public final class Const {
     public static final String  URI_USER_REG     =  "/user/reg/mobile"      ;
     public static final String  URI_USER_LOGIN   =  "/user/login/mobile"    ;
     public static final String  URI_IMAGE_ADD    =  "/image/add"            ;
-    public static final String  URI_ALBUM_INVITE =  "/album/invite/mobile"            ;
+    public static final String  URI_ALBUM_INVITE =  "/album/invite/mobile"  ;
     public static final String  URI_IMAGE_LIST   =  "/image/getlist"        ;
     public static final String  URI_SHARED_ALBUM =  "/album/share_album/mobile" ;
 

@@ -20,7 +20,7 @@ public final class SFValue {
     public final static String PREF_ALBUM_ID   = "PREF_ALBUM_ID";
     public final static String PREF_SHARE_ALBUM_NAME   = "PREF_SHARE_ALBUM_NAME";
 
-    public final static  String GCM_REG_ID = "GCM_REG_ID"; //API Key
+    public final static  String GCM_REG_ID  = "GCM_REG_ID"; //API Key
     public final static  String APP_VERSION = "APPVERSION";
 
     static Context mContext;

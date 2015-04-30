@@ -18,11 +18,4 @@ public class ResImageListModel {
     public void setShared_album(List<ImageModel> shared_album) {
         this.shared_album = shared_album;
     }
-
-    @Override
-    public String toString() {
-        return "ResImageListModel{" +
-                "shared_album=" + shared_album.get(0).getPhoto_ori_url().toString() + shared_album.get(0).getPhoto_thumb_url().toString() +
-                '}';
-    }
 }
