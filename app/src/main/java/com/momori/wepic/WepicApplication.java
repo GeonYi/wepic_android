@@ -3,6 +3,7 @@ package com.momori.wepic;
 import android.app.Application;
 import android.util.Log;
 
+import com.momori.wepic.common.CircleTransform;
 import com.momori.wepic.common.SFValue;
 import com.momori.wepic.common.database.DBHandler;
 import com.momori.wepic.external.facebook.FbComponent;
@@ -31,6 +32,8 @@ public class WepicApplication extends Application{
     private DBHandler dbHandler;
     private Locale locale;
 
+    private CircleTransform circleTransform;
+
     @Override
     public void onCreate(){
         super.onCreate();
@@ -49,6 +52,8 @@ public class WepicApplication extends Application{
         this.sfValue = new SFValue();
         this.fbComponent = new FbComponent();
         this.gcmComponent = new GcmComponent();
+        this.circleTransform = new CircleTransform();
+
         initImageLoader();
     }
 
@@ -86,5 +91,13 @@ public class WepicApplication extends Application{
 
     public void setLoginUser(UserModel loginUser) {
         this.loginUser = loginUser;
+    }
+
+    public CircleTransform getCircleTransform() {
+        return circleTransform;
+    }
+
+    public void setCircleTransform(CircleTransform circleTransform) {
+        this.circleTransform = circleTransform;
     }
 }

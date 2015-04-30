@@ -1,7 +1,5 @@
 package com.momori.wepic.model;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by sec on 2015-03-21.
  */
@@ -12,19 +10,19 @@ public class UserModel {
     private String user_email;
     private String external_id;
     private String user_name;
-    private String pictureUrl;
+    private String picture_url;
 
-    private UserDeviceModel userDevice;
+    private UserDeviceModel user_device;
 
     public UserModel(){}
 
-    public UserDeviceModel getUserDevice() {
-        return userDevice;
+    public UserDeviceModel getUser_Device() {
+        return user_device;
     }
 
-    public void setUserDevice(UserDeviceModel userDevice) {
-        if(this.userDevice==null) this.userDevice = new UserDeviceModel();
-        this.userDevice = userDevice;
+    public void setUser_Device(UserDeviceModel user_device) {
+        if(this.user_device==null) this.user_device = new UserDeviceModel();
+        this.user_device = user_device;
     }
 
     public String getUser_id() {
@@ -59,11 +57,19 @@ public class UserModel {
         this.user_name = user_name;
     }
 
-    public String getPictureUrl() {
-        return pictureUrl;
+    public String getPicture_url() {
+        return picture_url;
     }
 
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
+    public void setPicture_url(String picture_url) {
+        this.picture_url = picture_url;
+    }
+
+    public UserDeviceModel getUser_device() {
+        return user_device;
+    }
+
+    public void setUser_device(UserDeviceModel user_device) {
+        this.user_device = user_device;
     }
 }

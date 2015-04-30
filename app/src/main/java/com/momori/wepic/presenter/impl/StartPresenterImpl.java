@@ -84,7 +84,7 @@ public class StartPresenterImpl implements StartPresenter {
 
     public void startLogin(){
         if(isReadyToLogin()){
-            String user_id = "";
+            String user_id;
             if(!this.context.isLoggedin()){
                 Log.i(TAG, "Wepic 로그인 시작");
                 user_id = loginWepic();
@@ -92,7 +92,7 @@ public class StartPresenterImpl implements StartPresenter {
                 user_id = this.context.getLoginUser().getUser_id();
             }
 
-            if(!user_id.isEmpty()){
+            if(user_id!=null && !user_id.isEmpty()){
                 this.context.getLoginUser().setUser_id(user_id);
                 startMainActivity(user_id);
             }else{
@@ -103,13 +103,13 @@ public class StartPresenterImpl implements StartPresenter {
 
     private String loginWepic(){
         UserModel loginUser = checkAndGetLoginUser();
-        UserController userController = new UserController(loginUser);
-        ResLogInModel resLogin = userController.loginFbUser();
-        if(Func.isPostSucc(resLogin.getResult())){
+        UserController userController = new UserController();
+        ResLogInModel resLogin = userController.loginFbUser(loginUser);
+        if(Func.isPostSucc(resLogin)){
             Log.i(TAG, "Wepic 로그인 성공 : " + resLogin.getUser_id());
             return resLogin.getUser_id();
         }else{
-            Log.i(TAG, "Wepic 로그인 실패 : " + resLogin.getMsg());
+            Log.e(TAG, "Wepic 로그인 실패 : " + resLogin.getMsg());
             return "";
         }
     }
@@ -119,8 +119,8 @@ public class StartPresenterImpl implements StartPresenter {
         if(loginUser.getExternal_id()==null || loginUser.getExternal_id().isEmpty()){
             loginUser = this.context.getFbComponent().callFbLoginUser();
         }
-        if(loginUser.getUserDevice()==null){
-            loginUser.setUserDevice(createUserDeviceModel());
+        if(loginUser.getUser_Device()==null){
+            loginUser.setUser_Device(createUserDeviceModel());
         }
         return loginUser;
     }

@@ -7,11 +7,6 @@ public class ResCommonModel {
     private String result   ;
     private String msg      ;
 
-    public ResCommonModel(String result, String msg) {
-        this.result = result;
-        this.msg = msg;
-    }
-
     public String getResult() {
         return result;
     }

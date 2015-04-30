@@ -1,7 +1,5 @@
 package com.momori.wepic.presenter.inter;
 
-import android.view.View;
-
 import com.momori.wepic.activity.adapter.InviteListAdapter;
 
 /**

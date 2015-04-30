@@ -3,14 +3,11 @@ package com.momori.wepic.presenter.impl;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 import com.momori.wepic.R;
 import com.momori.wepic.WepicApplication;
 import com.momori.wepic.activity.AlbumViewActivity;
 import com.momori.wepic.activity.InviteActivity;
-import com.momori.wepic.activity.MainActivity;
-import com.momori.wepic.external.gcm.GcmComponent;
 import com.momori.wepic.model.AlbumModel;
 import com.momori.wepic.model.InviteModel;
 import com.momori.wepic.model.UserModel;
@@ -62,8 +59,130 @@ public class InvitePresenterImpl implements InvitePresenter{
                 Log.i(TAG, "친구 초대 리스트 비동기 출력 시작");
                 List<UserModel> inviteList = model.getInviteList();
 
-                //TODO: 테스트를 위해 로그인 유저 포함 지워야한다.
-                inviteList.add(0, context.getLoginUser());
+                UserModel model = WepicApplication.getInstance().getLoginUser();
+                inviteList.add(0, model);
+
+                UserModel user = new UserModel();
+                user.setUser_name("조영준");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준2");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준3");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준4");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준5");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준6");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준7");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준8");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준9");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준10");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준11");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준12");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준13");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준14");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준15");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준16");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준17");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+
+                user = new UserModel();
+                user.setUser_name("조영준18");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준19");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준20");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준21");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준22");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준23");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
+                user = new UserModel();
+                user.setUser_name("조영준24");
+                user.setExternal_id(model.getExternal_id());
+                inviteList.add(user);
+
                 return inviteList;
             }
 
@@ -71,7 +190,7 @@ public class InvitePresenterImpl implements InvitePresenter{
             protected void onPostExecute(List<UserModel> inviteList){
                 if(view!=null){
                     Log.d(TAG, "친구리스트 화면에 보여주기 갯수 : " + inviteList.size());
-                    inviteListAdapter = new InviteListAdapter(context, R.layout.activity_invite_list_item, inviteList);
+                    inviteListAdapter = new InviteListAdapter(activity, R.layout.activity_invite_list_item, inviteList);
                     presentInviteList();
                 }
             }

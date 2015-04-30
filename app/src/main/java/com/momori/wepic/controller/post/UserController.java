@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 
 import com.momori.wepic.common.Const;
 import com.momori.wepic.controller.post.helper.UserPostHelper;
-import com.momori.wepic.model.UserDeviceModel;
-import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.UserModel;
 
@@ -17,13 +15,10 @@ import retrofit.converter.GsonConverter;
  */
 public class UserController {
 
-    private UserModel user ;
     private RestAdapter restAdapter;
     private UserPostHelper regUserHelper;
 
-    public UserController(UserModel user) {
-        this.user = user;
-
+    public UserController() {
         this.restAdapter = new RestAdapter.Builder()
                 .setEndpoint(Const.URI_END_POINT)
                 .setConverter(new GsonConverter(new Gson()))
@@ -33,11 +28,8 @@ public class UserController {
     }
 
     // 페이스북 회원가입 및 로그인
-    public ResLogInModel loginFbUser(){
-        UserDeviceModel userDeviceModel = user.getUserDevice();
-        return regUserHelper.loginFbUser(user.getUser_email(), user.getExternal_id()
-                , userDeviceModel.getDev_id(), userDeviceModel.getDev_number()
-                , userDeviceModel.getDev_platform(), userDeviceModel.getDev_reg_id());
+    public ResLogInModel loginFbUser(UserModel loginUser){
+        return regUserHelper.loginFbUser(loginUser);
     }
 
     /** 회원등록 *//*

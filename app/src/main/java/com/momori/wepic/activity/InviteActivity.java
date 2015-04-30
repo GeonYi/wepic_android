@@ -1,12 +1,10 @@
 package com.momori.wepic.activity;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,7 +25,6 @@ public class InviteActivity extends Activity implements InvitePresenter.View{
     private TextView selectedCountView;
     private TextView confirmTextView;
     private ListView inviteListView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState){

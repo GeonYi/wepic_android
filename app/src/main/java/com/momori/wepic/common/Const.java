@@ -11,7 +11,7 @@ public final class Const {
     public static final String  URI_END_POINT =  "http://54.92.72.185";
 
     /** user_reg */
-    public static final String  URI_USER_FBREG = "/user/fbreg/mobile"   ;
+    public static final String  URI_USER_FBLOGIN = "/user/fblogin/mobile"   ;
     public static final String  URI_USER_REG     =  "/user/reg/mobile"      ;
     public static final String  URI_USER_LOGIN   =  "/user/login/mobile"    ;
     public static final String  URI_IMAGE_ADD    =  "/image/add"            ;
