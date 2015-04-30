@@ -1,10 +1,13 @@
 package com.momori.wepic.controller.post.helper;
 
 import com.momori.wepic.common.Const;
+import com.momori.wepic.model.UserModel;
 import com.momori.wepic.model.response.ResCommonModel;
 import com.momori.wepic.model.response.ResLogInModel;
 import com.momori.wepic.model.response.ResShareAlbumModel;
 
+
+import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
@@ -14,6 +17,9 @@ import retrofit.http.POST;
  */
 public interface UserPostHelper {
 
+    @POST(Const.URI_USER_FBLOGIN)
+    ResLogInModel loginFbUser(@Body UserModel loginUser);
+
     @FormUrlEncoded
     @POST(Const.URI_USER_REG)
     ResCommonModel regUser(
@@ -22,13 +28,6 @@ public interface UserPostHelper {
             @Field("user_name") String userName,
             @Field("dev_number") String devNumber,
             @Field("dev_platform") String devPlatform
-    );
-
-    @FormUrlEncoded
-    @POST(Const.URI_USER_LOGIN)
-    ResLogInModel loginUser(
-            @Field("user_email") String userEmail,
-            @Field("user_pw") String userPw
     );
 
     @FormUrlEncoded

@@ -3,7 +3,11 @@ package com.momori.wepic.controller.post;
 import com.google.gson.Gson;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.controller.post.helper.GcmPostHelper;
+import com.momori.wepic.model.UserModel;
 import com.momori.wepic.model.response.ResCommonModel;
+import com.momori.wepic.model.response.ResGcmInviteModel;
+
+import java.util.List;
 
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -25,8 +29,9 @@ public class GcmController {
         gcmPostHelper = this.restAdapter.create(GcmPostHelper.class);
     }
 
-    /** GCM PUSH */
-    public ResCommonModel pushMessage(){
-        return gcmPostHelper.pushMessage("mh", "mh2", "Push Message");
+
+    /** GCM 초대 */
+    public ResGcmInviteModel inviteAlbum(UserModel loginUser, List<String> invite_external_ids, String album_id){
+        return gcmPostHelper.inviteAlbum(loginUser.getUser_id(), loginUser.getUser_name(), invite_external_ids, album_id);
     }
 }

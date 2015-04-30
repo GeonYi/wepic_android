@@ -3,11 +3,15 @@ package com.momori.wepic.common;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import com.momori.wepic.WepicApplication;
 
 /**
  * Created by sec on 2015-04-10.
  */
 public final class SFValue {
+    static final String TAG = SFValue.class.getName();
 
     private final static String PREF_NAME = "com.momori.pref";
 
@@ -20,13 +24,14 @@ public final class SFValue {
     public final static String PREF_ALBUM_ID   = "PREF_ALBUM_ID";
     public final static String PREF_SHARE_ALBUM_NAME   = "PREF_SHARE_ALBUM_NAME";
 
-    public final static  String GCM_REG_ID  = "GCM_REG_ID"; //API Key
-    public final static  String APP_VERSION = "APPVERSION";
+    public final static  String PREF_REG_ID = "PREF_REG_ID"; //API Key
+    public final static  String PREF_APP_VERSION = "PREF_APPVERSION";
 
-    static Context mContext;
+    private WepicApplication mContext;
 
-    public SFValue(Context c) {
-        mContext = c;
+    public SFValue() {
+        Log.d(TAG, "SFValue 객체 생성");
+        mContext = WepicApplication.getInstance();
     }
 
 

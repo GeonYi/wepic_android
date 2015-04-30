@@ -4,79 +4,72 @@ package com.momori.wepic.model;
  * Created by sec on 2015-03-21.
  */
 public class UserModel {
+    public static final String USER_ID = "USER_ID";
 
-    private String userId       ;
-    private String userEmail    ;
-    private String userPw       ;
-    private String userName     ;
-    private String devNumber    ;
-    private String devPlatform  ;
+    private String user_id;
+    private String user_email;
+    private String external_id;
+    private String user_name;
+    private String picture_url;
 
-    public UserModel(String userEmail, String userPw, String userName, String devNumber, String devPlatform) {
+    private UserDeviceModel user_device;
 
-        this.userEmail = userEmail;
-        this.userPw = userPw;
-        this.userName = userName;
-        this.devNumber = devNumber;
-        this.devPlatform = devPlatform;
+    public UserModel(){}
+
+    public UserDeviceModel getUser_Device() {
+        return user_device;
     }
 
-    public UserModel(String userEmail, String userPw, String userName) {
-
-        this.userEmail  = userEmail;
-        this.userPw     = userPw;
-        this.userName   = userName;
+    public void setUser_Device(UserDeviceModel user_device) {
+        if(this.user_device==null) this.user_device = new UserDeviceModel();
+        this.user_device = user_device;
     }
 
-    public UserModel(String userEmail, String userPw) {
-        this.userEmail  = userEmail;
-        this.userPw     = userPw;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public UserModel() {
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public String getUserId() { return userId; }
-
-    public void setUserId(String userId) { this.userId = userId; }
-
-    public String getDevNumber() {
-        return devNumber;
+    public String getUser_email() {
+        return user_email;
     }
 
-    public void setDevNumber(String devNumber) {
-        this.devNumber = devNumber;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
-    public String getDevPlatform() {
-        return devPlatform;
+    public String getExternal_id() {
+        return external_id;
     }
 
-    public void setDevPlatform(String devPlatform) {
-        this.devPlatform = devPlatform;
+    public void setExternal_id(String external_id) {
+        this.external_id = external_id;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getUserPw() {
-        return userPw;
+    public String getPicture_url() {
+        return picture_url;
     }
 
-    public void setUserPw(String userPw) {
-        this.userPw = userPw;
+    public void setPicture_url(String picture_url) {
+        this.picture_url = picture_url;
     }
 
-    public String getUserName() {
-        return userName;
+    public UserDeviceModel getUser_device() {
+        return user_device;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser_device(UserDeviceModel user_device) {
+        this.user_device = user_device;
     }
 }

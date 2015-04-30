@@ -3,39 +3,22 @@ package com.momori.wepic.model.response;
 /**
  * Created by sec on 2015-04-12.
  */
-public class ResLogInModel {
-    private String result    ;
-    private String msg       ;
+public class ResLogInModel extends ResCommonModel{
+
     private String user_id   ;
 
-    public ResLogInModel(String result, String msg, String userId) {
-        this.result = result;
-        this.msg = msg;
-        this.user_id = userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public String getResult() { return result; }
-
-    public void setResult(String result) {
-        this.result = result;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getUserId() { return user_id; }
 
     @Override
     public String toString() {
-        return "ResLogInModel{" +
-                "result='" + result + '\'' +
-                ", msg='" + msg + '\'' +
-                ", user_id='" + user_id + '\'' +
+        return super.toString() + " ResLogInModel{" +
+                "user_id='" + user_id + '\'' +
                 '}';
     }
 }

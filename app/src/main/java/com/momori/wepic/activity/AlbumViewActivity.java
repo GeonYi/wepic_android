@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
 import com.momori.wepic.R;
+import com.momori.wepic.WepicApplication;
 import com.momori.wepic.activity.adapter.StaggeredGridAdapter;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.SFValue;
@@ -27,12 +28,14 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
     private StaggeredGridAdapter mAdapter;
 
     private ArrayList<String> mData;
-    SFValue pref = new SFValue(this);
+
+    private WepicApplication context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_view);
+        this.context = (WepicApplication)getApplicationContext();
 
         if (mData == null) {
             mData = generateData();
@@ -99,7 +102,7 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
         ArrayList<String> listData = new ArrayList<String>();
 
         ImageController imageCtl = new ImageController();
-        ResImageListModel imglist = imageCtl.getImageList(pref.getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT));
+        ResImageListModel imglist = imageCtl.getImageList(this.context.getSfValue().getValue(SFValue.PREF_ALBUM_ID, Const.SF_NULL_INT));
 
         for(int i = 0 ; i < imglist.getShared_album().size() ; i++)
         {

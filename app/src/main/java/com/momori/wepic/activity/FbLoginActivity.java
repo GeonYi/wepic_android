@@ -10,8 +10,8 @@ import android.view.KeyEvent;
 
 import com.momori.wepic.R;
 import com.momori.wepic.external.facebook.FbLoginButton;
-import com.momori.wepic.presenter.inter.FbLoginPresenter;
 import com.momori.wepic.presenter.impl.FbLoginPresenterImpl;
+import com.momori.wepic.presenter.inter.FbLoginPresenter;
 
 
 /**
@@ -33,8 +33,8 @@ public class FbLoginActivity extends FragmentActivity implements FbLoginPresente
         this.fbLoginPresenter.login();
     }
 
-    public void setResultAndFinish(int resultCode, Intent intent){
-        setResult(resultCode , intent);
+    public void setResultAndFinish(int resultCode){
+        setResult(resultCode);
         finish();
     }
 
@@ -71,22 +71,4 @@ public class FbLoginActivity extends FragmentActivity implements FbLoginPresente
         Log.d(TAG, "FbLoginActivity destroy");
         super.onDestroy();
     }
-
-    /*
-                GraphRequest.newMeRequest(loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-
-                            @Override
-                            public void onCompleted(JSONObject user, GraphResponse response) {
-                                if (user != null) {
-                                    //profilePictureView.setProfileId(user.optString("id"));
-                                    String fb_user_id = user.optString("id");
-                                    moveToMainActivity();
-                                } else {
-                                    Log.e(TAG, response.getError().getErrorMessage());
-                                }
-                            }
-                        }).executeAsync();
-     */
-
 }

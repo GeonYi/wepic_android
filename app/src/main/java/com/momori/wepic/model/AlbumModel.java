@@ -4,6 +4,7 @@ package com.momori.wepic.model;
  * Created by sec on 2015-04-13.
  */
 public class AlbumModel {
+    public static final String ALBUM_ID = "ALBUM_ID";
 
     private String group_id;
 

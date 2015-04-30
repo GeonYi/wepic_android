@@ -43,7 +43,7 @@ public class UserRegActivity extends Activity {
     public void regButtonOnclick() {
 
         Log.i(this.getClass().toString(), "test");
-
+/*
 
         if(Func.checkEmailFormat(textEmail.getText().toString()) == false){
             Log.i(this.getClass().toString(), "email format check error");
@@ -70,7 +70,7 @@ public class UserRegActivity extends Activity {
             this.resLogIn = usr.loginUser();
 
             if(Func.isPostSucc(this.resLogIn.getResult()) == true ){
-                SFValue pref = new SFValue(this);
+                SFValue pref = SFValue.getInstance();
                 if(pref.getValue(SFValue.PREF_AUTO_LOGIN, false) == false){
                    pref.put(SFValue.PREF_USER_EMAIL, this.userVo.getUserEmail());
                    pref.put(SFValue.PREF_USER_ID   , this.userVo.getUserPw   ());
@@ -88,5 +88,7 @@ public class UserRegActivity extends Activity {
             // TODO : 오류 출력
             Log.i(this.getClass().toString(), resCommon.getMsg());
         }
+
+        */
     }
 }

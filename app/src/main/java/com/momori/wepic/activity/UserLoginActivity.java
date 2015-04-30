@@ -8,6 +8,7 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.momori.wepic.R;
+import com.momori.wepic.WepicApplication;
 import com.momori.wepic.activity.material.ContactEditText;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.common.Func;
@@ -38,7 +39,7 @@ public class UserLoginActivity extends Activity{
     ResLogInModel       resLogIn    ;
     ResShareAlbumModel  resShareAlbum   ;
 
-    SFValue pref = new SFValue(this);
+    SFValue pref = ((WepicApplication)getApplicationContext()).getSfValue();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class UserLoginActivity extends Activity{
         // Create global configuration and initialize ImageLoader with this configuration
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext()).build();
         ImageLoader.getInstance().init(config);
-
+/*
         //todo : will delete
         textEmail.setText("geon@gmal.com");
         textPassword.setText("11223344");
@@ -88,11 +89,12 @@ public class UserLoginActivity extends Activity{
                 startActivity(intentSubActivity);
             }
         }
+        */
     }
 
     @OnClick(R.id.login_button_login)
     public void loginButtonOnclick() {
-
+/*
         // email validation check
         if(Func.checkEmailFormat(textEmail.getText().toString()) == false){
             //todo : email error일때 에러처리
@@ -126,6 +128,7 @@ public class UserLoginActivity extends Activity{
         else {
             Log.i(this.getClass().toString(), resLogIn.getMsg());
         }
+        */
     }
 
     /** 등록 버튼 클릭시 */
