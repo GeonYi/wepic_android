@@ -2,19 +2,18 @@ package com.momori.wepic.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.momori.wepic.R;
-import com.momori.wepic.activity.fragment.FramentShareAlbum;
-import com.momori.wepic.common.SFValue;
+import com.momori.wepic.activity.fragment.FragmentShareAlbum;
+import com.momori.wepic.external.facebook.FbLoginButton;
 import com.rey.material.app.ToolbarManager;
 
 public class MainActivity extends ActionBarActivity implements ToolbarManager.OnToolbarGroupChangedListener {
@@ -29,11 +28,13 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
     private Toolbar mToolbar;
     private ToolbarManager mToolbarManager;
 
-    SFValue pref = new SFValue(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
+        mToolbarManager = new ToolbarManager(this, mToolbar, 0, R.style.ToolbarRippleStyle, R.anim.abc_fade_in, R.anim.abc_fade_out);
 
 
 //        dl_navigator = (DrawerLayout)findViewById(R.id.main_dl);
@@ -53,22 +54,6 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
 
         //card library
         //Add Header to card
-
-        setContentView(R.layout.activity_main);
-
-        mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
-        mToolbarManager = new ToolbarManager(this, mToolbar, 0, R.style.ToolbarRippleStyle, R.anim.abc_fade_in, R.anim.abc_fade_out);
-    }
-
-    public static class FragmentShareAlbum extends FramentShareAlbum {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.demo_fragment_native_misc_card, null);
-        }
-
-        public void onReasum(){
-
-        }
     }
 
     @Override
@@ -89,6 +74,8 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
             case R.id.tb_add:
                 Log.i(this.getClass().toString(), "TODO : make album");
 //                mToolbarManager.setCurrentGroup(R.id.tb_group_contextual);
+                Intent intent = new Intent(MainActivity.this, InviteActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tb_done:
             case R.id.tb_done_all:

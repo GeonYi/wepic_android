@@ -145,7 +145,6 @@ public class StartPresenterImpl implements StartPresenter {
     private void startMainActivity(String user_id){
         Log.i(TAG, "MainActivity로 이동");
         Intent intent = new Intent(this.activity, MainActivity.class);
-        intent.putExtra(UserModel.USER_ID, user_id);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.activity.startActivity(intent);
     }

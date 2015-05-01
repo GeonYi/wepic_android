@@ -10,7 +10,7 @@ import com.momori.wepic.R;
 import com.momori.wepic.activity.card.SuggestedCard;
 import it.gmariotti.cardslib.library.view.CardViewNative;
 
-public class FramentShareAlbum extends Fragment {
+public class FragmentShareAlbum extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

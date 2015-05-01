@@ -14,9 +14,10 @@
         android:background="?attr/colorPrimary"
         app:theme="@style/AppBar"/>
 
+
     <fragment
         android:id="@+id/frag_share_album"
-        class="com.momori.wepic.activity.MainActivity$FragmentShareAlbum"
+        class="com.momori.wepic.activity.fragment.FragmentShareAlbum"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
