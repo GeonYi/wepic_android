@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.momori.wepic.R;
+import com.momori.wepic.model.AlbumModel;
+
+import java.util.List;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardHeader;
@@ -18,19 +21,22 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
  */
 public class AlbumSuggestedCard extends Card {
 
-    public AlbumSuggestedCard(Context context) {
-        this(context, R.layout.suggesstedcard_album_content);
+    private AlbumModel cardAlbum;
+
+    public AlbumSuggestedCard(Context context, AlbumModel album) {
+        this(context, R.layout.suggesstedcard_album_content, album);
     }
 
-    public AlbumSuggestedCard(Context context, int innerLayout) {
+    public AlbumSuggestedCard(Context context, int innerLayout, AlbumModel album) {
         super(context, innerLayout);
+        this.cardAlbum = album;
         init();
     }
 
     private void init() {
 
         //Add a header
-        SuggestedCardHeader header = new SuggestedCardHeader(getContext());
+        CardHeader header = new AlbumSuggestedCardHeader(getContext(), this.cardAlbum);
         addCardHeader(header);
 
         //Set click listener
@@ -75,52 +81,6 @@ public class AlbumSuggestedCard extends Card {
 
 }
 
-class AlbumSuggestedCardHeader extends CardHeader {
 
-    public AlbumSuggestedCardHeader(Context context) {
-        this(context, R.layout.suggestedcard_album_header);
-    }
 
-    public AlbumSuggestedCardHeader(Context context, int innerLayout) {
-        super(context, innerLayout);
-    }
 
-    @Override
-    public void setupInnerViewElements(ViewGroup parent, View view) {
-
-        if (view != null) {
-            TextView textView = (TextView) view.findViewById(R.id.suggested_album_header_title);
-
-            if (textView != null) {
-                textView.setText(R.string.card_shard_title);
-            }
-        }
-    }
-}
-
-class AlbumSuggestedCardThumb extends CardThumbnail {
-
-    public AlbumSuggestedCardThumb(Context context) {
-        super(context);
-    }
-
-    @Override
-    public void setupInnerViewElements(ViewGroup parent, View viewImage) {
-        if (viewImage != null) {
-
-            if (parent!=null && parent.getResources()!=null){
-                DisplayMetrics metrics=parent.getResources().getDisplayMetrics();
-
-                int base = 100;
-
-                if (metrics!=null){
-                    viewImage.getLayoutParams().width = (int)(base*metrics.density);
-                    viewImage.getLayoutParams().height = (int)(base*metrics.density);
-                }else{
-                    viewImage.getLayoutParams().width = 200;
-                    viewImage.getLayoutParams().height = 200;
-                }
-            }
-        }
-    }
-}
