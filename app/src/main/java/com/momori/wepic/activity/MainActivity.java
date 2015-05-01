@@ -2,18 +2,18 @@ package com.momori.wepic.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 import com.momori.wepic.R;
-import com.momori.wepic.activity.fragment.FragmentShareAlbum;
-import com.momori.wepic.external.facebook.FbLoginButton;
+import com.momori.wepic.activity.fragment.AlbumListFragment;
+import com.momori.wepic.activity.fragment.ShareAlbumFragment;
 import com.rey.material.app.ToolbarManager;
 
 public class MainActivity extends ActionBarActivity implements ToolbarManager.OnToolbarGroupChangedListener {
@@ -28,6 +28,8 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
     private Toolbar mToolbar;
     private ToolbarManager mToolbarManager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,32 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
         mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
         mToolbarManager = new ToolbarManager(this, mToolbar, 0, R.style.ToolbarRippleStyle, R.anim.abc_fade_in, R.anim.abc_fade_out);
 
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main_extras, new AlbumListFragment()).commit();
+
+
+/*
+        LinearLayout layout_share_album = (LinearLayout)findViewById(R.id.layout_share_album);
+
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        //noinspection ResourceType
+        ll.setId(12345);
+
+
+
+        getSupportFragmentManager().beginTransaction().add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .add(ll.getId(),  new ShareAlbumFragment())
+                                    .commit();
+
+        layout_share_album.addView(ll);
+*/
 
 //        dl_navigator = (DrawerLayout)findViewById(R.id.main_dl);
 
@@ -145,6 +173,7 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }
 
 
