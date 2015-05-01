@@ -36,7 +36,7 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_view);
         this.context = (WepicApplication)getApplicationContext();
-
+/*
         if (mData == null) {
             mData = generateData();
         }
@@ -46,6 +46,7 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
                 mAdapter.add(data);
             }
         }
+
 
         mGridView = (StaggeredGridView) findViewById(R.id.grid_view);
         mAdapter = new StaggeredGridAdapter(this,android.R.layout.simple_list_item_1, mData);
@@ -57,6 +58,7 @@ public class AlbumViewActivity extends Activity implements AbsListView.OnScrollL
         mGridView.setAdapter(mAdapter);
         mGridView.setOnScrollListener(this);
         mGridView.setOnItemClickListener(this);
+        */
     }
 
     @Override
