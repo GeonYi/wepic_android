@@ -36,17 +36,6 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
         mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
         mToolbarManager = new ToolbarManager(this, mToolbar, 0, R.style.ToolbarRippleStyle, R.anim.abc_fade_in, R.anim.abc_fade_out);
 
-        FragmentManager fm = getSupportFragmentManager();
-       // Fragment fragment = fm.findFragmentById(R.id.frame_share_album);
-
-        FragmentShareAlbum fragment = new FragmentShareAlbum();
-        FragmentShareAlbum fragment2 = new FragmentShareAlbum();
-        FragmentShareAlbum fragment3 = new FragmentShareAlbum();
-        FragmentShareAlbum fragment4 = new FragmentShareAlbum();
-        fm.beginTransaction().add(R.id.frame_share_album, fragment)
-                .add(R.id.frame_share_album, fragment2)
-                .add(R.id.frame_share_album, fragment3)
-                .add(R.id.frame_share_album, fragment4).commit();
 
 //        dl_navigator = (DrawerLayout)findViewById(R.id.main_dl);
 

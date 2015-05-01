@@ -5,8 +5,12 @@ import com.momori.wepic.common.Const;
 import com.momori.wepic.controller.post.helper.AlbumPostHelper;
 import com.momori.wepic.model.InviteModel;
 import com.momori.wepic.model.UserModel;
+import com.momori.wepic.model.request.ReqMakeAlbumModel;
 import com.momori.wepic.model.response.ResMakeAlbumModel;
 import com.momori.wepic.model.response.ResShareAlbumModel;
+
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -40,7 +44,9 @@ public class AlbumController {
     }
 
     /** 앨범 만들기 */
-    public ResMakeAlbumModel makeAlbum(InviteModel invite){
-        return albumHelper.makeAlbum(invite);
+    public ResMakeAlbumModel makeAlbum(UserModel maker, List<String> invite_users){
+       ReqMakeAlbumModel req = new ReqMakeAlbumModel(maker, invite_users);
+        return albumHelper.makeAlbum(req);
     }
+
 }

@@ -15,12 +15,11 @@
         app:theme="@style/AppBar"/>
 
 
-    <FrameLayout
-        android:id="@+id/frame_share_album"
+    <fragment
+        android:id="@+id/frag_share_album"
+        class="com.momori.wepic.activity.fragment.FragmentShareAlbum"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>
 

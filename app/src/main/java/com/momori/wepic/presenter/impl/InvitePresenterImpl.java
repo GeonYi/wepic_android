@@ -8,10 +8,13 @@ import com.momori.wepic.R;
 import com.momori.wepic.WepicApplication;
 import com.momori.wepic.activity.AlbumViewActivity;
 import com.momori.wepic.activity.InviteActivity;
+import com.momori.wepic.common.Func;
+import com.momori.wepic.controller.post.AlbumController;
 import com.momori.wepic.model.AlbumModel;
 import com.momori.wepic.model.InviteModel;
 import com.momori.wepic.model.UserModel;
 import com.momori.wepic.activity.adapter.InviteListAdapter;
+import com.momori.wepic.model.response.ResMakeAlbumModel;
 import com.momori.wepic.presenter.inter.InvitePresenter;
 
 import java.util.List;
@@ -89,6 +92,11 @@ public class InvitePresenterImpl implements InvitePresenter{
     public void onConfirm() {
         UserModel loginUser = this.context.getLoginUser();
         List<String> selectedList = this.model.getSelectedList();
+
+        // 앨범을 만들때는 본인도 보낸다.
+        selectedList.add(0, loginUser.getExternal_id());
+        // 앨범 중간에 초대시에는 신규 인원만 보낸다.
+
         sendInviteAlbum(loginUser, selectedList, null);
     }
 
@@ -96,7 +104,16 @@ public class InvitePresenterImpl implements InvitePresenter{
         new AsyncTask<Object, Void, String>(){
             @Override
             protected String doInBackground(Object[] params) {
-                return context.getGcmComponent().sendInviteAlbum(loginUser, selectedList, album_id);
+                AlbumController controller = new AlbumController(loginUser);
+                ResMakeAlbumModel response = controller.makeAlbum(loginUser, selectedList);
+
+                String album_id;
+                if(Func.isPostSucc(response)){
+                    album_id =  response.getAlbum_id();
+                }else{
+                    album_id = "";
+                }
+                return album_id;
             }
 
             @Override

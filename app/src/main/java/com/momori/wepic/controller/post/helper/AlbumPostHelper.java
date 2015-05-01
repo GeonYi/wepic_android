@@ -1,9 +1,7 @@
 package com.momori.wepic.controller.post.helper;
 
 import com.momori.wepic.common.Const;
-import com.momori.wepic.model.InviteModel;
-import com.momori.wepic.model.UserModel;
-import com.momori.wepic.model.response.ResLogInModel;
+import com.momori.wepic.model.request.ReqMakeAlbumModel;
 import com.momori.wepic.model.response.ResMakeAlbumModel;
 import com.momori.wepic.model.response.ResShareAlbumModel;
 
@@ -24,5 +22,5 @@ public interface AlbumPostHelper {
     );
 
     @POST(Const.URI_ALBUM_MAKE)
-    ResMakeAlbumModel makeAlbum(@Body InviteModel invite);
+    ResMakeAlbumModel makeAlbum(@Body ReqMakeAlbumModel req);
 }

@@ -136,14 +136,4 @@ public class GcmComponent{
         this.context.getSfValue().put(SFValue.PREF_REG_ID, gcm_reg_id);
         this.context.getSfValue().put(SFValue.PREF_APP_VERSION, getAppVersion());
     }
-
-    public String sendInviteAlbum(UserModel loginUser, List<String> invite_external_ids, String album_id){
-        ResGcmInviteModel response = this.controller.inviteAlbum(loginUser, invite_external_ids, album_id);
-        if(Func.isPostSucc(response.getResult())){
-            return response.getAlbum_id();
-        }else{
-            Log.i(TAG, "초대 실패 : " + response.getAlbum_id());
-            return "";
-        }
-    }
 }
