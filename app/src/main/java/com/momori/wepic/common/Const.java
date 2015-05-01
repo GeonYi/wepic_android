@@ -19,6 +19,10 @@ public final class Const {
     public static final String  URI_IMAGE_LIST   =  "/image/getlist"        ;
     public static final String  URI_SHARED_ALBUM =  "/album/share_album/mobile" ;
 
+
+    /** album **/
+    public static final String  URI_ALBUM_MAKE = "/album/make/mobile"   ;
+
     //==========================================================
     // common value
     //=========================================================

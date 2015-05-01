@@ -85,6 +85,13 @@ public class WepicApplication extends Application{
         return this.loginUser!=null && this.loginUser.getUser_id()!=null && !this.loginUser.getUser_id().isEmpty();
     }
 
+    public String getUser_id(){
+        if(isLoggedin()){
+            return this.loginUser.getUser_id();
+        }
+        return "";
+    }
+
     public UserModel getLoginUser() {
         return loginUser;
     }

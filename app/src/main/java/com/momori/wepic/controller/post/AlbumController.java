@@ -3,7 +3,9 @@ package com.momori.wepic.controller.post;
 import com.google.gson.Gson;
 import com.momori.wepic.common.Const;
 import com.momori.wepic.controller.post.helper.AlbumPostHelper;
+import com.momori.wepic.model.InviteModel;
 import com.momori.wepic.model.UserModel;
+import com.momori.wepic.model.response.ResMakeAlbumModel;
 import com.momori.wepic.model.response.ResShareAlbumModel;
 
 import retrofit.RestAdapter;
@@ -35,5 +37,10 @@ public class AlbumController {
     /** 공유사진정보추출 */
     public ResShareAlbumModel getSharedAlbumInfo(){
         return albumHelper.getShareAlbum(user.getUser_id());
+    }
+
+    /** 앨범 만들기 */
+    public ResMakeAlbumModel makeAlbum(InviteModel invite){
+        return albumHelper.makeAlbum(invite);
     }
 }
