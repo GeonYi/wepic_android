@@ -9,14 +9,20 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 
 import com.momori.wepic.R;
-import com.momori.wepic.activity.fragment.AlbumListFragment;
-import com.momori.wepic.activity.fragment.ShareAlbumFragment;
+import com.momori.wepic.activity.fragment.AlbumCardFragment;
+import com.momori.wepic.model.AlbumModel;
+import com.momori.wepic.presenter.impl.MainPresenterImpl;
+import com.momori.wepic.presenter.inter.MainPresenter;
 import com.rey.material.app.ToolbarManager;
 
-public class MainActivity extends ActionBarActivity implements ToolbarManager.OnToolbarGroupChangedListener {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class MainActivity extends ActionBarActivity implements MainPresenter.View, ToolbarManager.OnToolbarGroupChangedListener {
+    static final String TAG = MainActivity.class.getName();
 
 //    @InjectView(R.id.main_button_invite     ) Button inviteButton;
 //    @InjectView(R.id.main_button_shareStart ) Button shareButton;
@@ -28,17 +34,28 @@ public class MainActivity extends ActionBarActivity implements ToolbarManager.On
     private Toolbar mToolbar;
     private ToolbarManager mToolbarManager;
 
+    public MainPresenter presenter;
+
+    private AlbumCardFragment albumCardFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.presenter = new MainPresenterImpl(MainActivity.this);
+        this.presenter.setView(this);
+
+        this.albumCardFragment = new AlbumCardFragment();
+        this.presenter.showAlbumCardFragment(R.id.fragment_album_list, this.albumCardFragment);
+
+
 
         mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
         mToolbarManager = new ToolbarManager(this, mToolbar, 0, R.style.ToolbarRippleStyle, R.anim.abc_fade_in, R.anim.abc_fade_out);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main_extras, new AlbumListFragment()).commit();
+
+
 
 
 /*

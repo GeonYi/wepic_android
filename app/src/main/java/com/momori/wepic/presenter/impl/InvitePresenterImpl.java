@@ -14,7 +14,7 @@ import com.momori.wepic.model.AlbumModel;
 import com.momori.wepic.model.InviteModel;
 import com.momori.wepic.model.UserModel;
 import com.momori.wepic.activity.adapter.InviteListAdapter;
-import com.momori.wepic.model.response.ResMakeAlbumModel;
+import com.momori.wepic.model.response.ResAlbumMakeModel;
 import com.momori.wepic.presenter.inter.InvitePresenter;
 
 import java.util.List;
@@ -104,8 +104,8 @@ public class InvitePresenterImpl implements InvitePresenter{
         new AsyncTask<Object, Void, String>(){
             @Override
             protected String doInBackground(Object[] params) {
-                AlbumController controller = new AlbumController(loginUser);
-                ResMakeAlbumModel response = controller.makeAlbum(loginUser, selectedList);
+                AlbumController controller = new AlbumController();
+                ResAlbumMakeModel response = controller.makeAlbum(loginUser, selectedList);
 
                 String album_id;
                 if(Func.isPostSucc(response)){
@@ -132,7 +132,6 @@ public class InvitePresenterImpl implements InvitePresenter{
         Log.i(TAG, "AlbumViewActivity로 이동");
         Intent intent = new Intent(this.activity, AlbumViewActivity.class);
         intent.putExtra(AlbumModel.ALBUM_ID, album_id);
-
         this.activity.finish();
         this.activity.startActivity(intent);
     }

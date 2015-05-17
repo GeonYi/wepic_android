@@ -22,6 +22,7 @@ public final class Const {
 
     /** album **/
     public static final String  URI_ALBUM_MAKE = "/album/make/mobile"   ;
+    public static final String  URI_ALBUM_LIST = "/album/list/mobile"   ;
 
     //==========================================================
     // common value

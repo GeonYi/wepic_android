@@ -141,8 +141,8 @@ public class UserLoginActivity extends Activity{
 
     private void getUserAlbumInfo(){
 
-        AlbumController albumCtl = new AlbumController(this.userVo);
-        this.resShareAlbum = albumCtl.getSharedAlbumInfo();
+        //AlbumController albumCtl = new AlbumController(this.userVo);
+        //this.resShareAlbum = albumCtl.getSharedAlbumInfo();
 
         // 공유정보 추출
         if(this.resShareAlbum.getShared_album() != null){    //공유중이라면,

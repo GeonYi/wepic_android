@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Hyeon on 2015-05-01.
  */
-public class ReqMakeAlbumModel {
+public class ReqAlbumMakeModel {
 
     private String user_id;
     private String user_name;
@@ -16,7 +16,7 @@ public class ReqMakeAlbumModel {
     private String group_id;
     private List<InviteUser> invite_users;
 
-    public ReqMakeAlbumModel(UserModel sender, List<String> invite_users){
+    public ReqAlbumMakeModel(UserModel sender, List<String> invite_users){
         this.user_id = sender.getUser_id();
         this.user_name = sender.getUser_name();
         this.album_id = "";

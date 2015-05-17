@@ -19,12 +19,28 @@ public class AlbumModel {
 
     private long total_photo_cnt;
 
-    private Date init_create_datetime;
+    private String init_create_datetime;
 
-    private Date end_datetime;
+    private String end_datetime;
 
-    private List<UserModel> user_info;
+    private List<AlbumUserModel> user_info;
 
+    private String users_name;
+
+
+    public String getUsers_name(){
+        if(users_name==null) {
+            StringBuffer sb = new StringBuffer();
+            for (AlbumUserModel albumUser : user_info) {
+                if (albumUser.getUser_state().equals("join")) {
+                    if (sb.length() > 0) sb.append(",");
+                    sb.append(albumUser.getUser_name());
+                }
+            }
+            this.users_name = sb.toString();
+        }
+        return this.users_name;
+    }
 
 
     public String getGroup_id() {
@@ -67,27 +83,31 @@ public class AlbumModel {
         this.total_photo_cnt = total_photo_cnt;
     }
 
-    public Date getInit_create_datetime() {
+    public String getInit_create_datetime() {
         return init_create_datetime;
     }
 
-    public void setInit_create_datetime(Date init_create_datetime) {
+    public void setInit_create_datetime(String init_create_datetime) {
         this.init_create_datetime = init_create_datetime;
     }
 
-    public Date getEnd_datetime() {
+    public String getEnd_datetime() {
         return end_datetime;
     }
 
-    public void setEnd_datetime(Date end_datetime) {
+    public void setEnd_datetime(String end_datetime) {
         this.end_datetime = end_datetime;
     }
 
-    public List<UserModel> getUser_info() {
+    public void setUsers_name(String users_name) {
+        this.users_name = users_name;
+    }
+
+    public List<AlbumUserModel> getUser_info() {
         return user_info;
     }
 
-    public void setUser_info(List<UserModel> user_info) {
+    public void setUser_info(List<AlbumUserModel> user_info) {
         this.user_info = user_info;
     }
 }
